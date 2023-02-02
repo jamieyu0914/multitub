@@ -1,0 +1,816 @@
+html {
+  font-size: 125%;
+}
+.desktop-view {
+  text-align: center;
+  display: block;
+}
+.mymenu {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 54px;
+  z-index: 998;
+  background: white;
+  position: fixed;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  position: fixed;
+  width: 1200px;
+  margin: auto;
+}
+.desktop-menu-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: auto;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 34px;
+  color: #da291c;
+  width: 600px;
+  height: 54px;
+}
+.mytext {
+  margin: 10px;
+}
+.desktop-menu-right {
+  width: 600px;
+  color: #666666;
+  flex: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 999;
+  height: 54px;
+}
+.item {
+  flex: none; /*固定配置*/
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+  border: 0px;
+  background-color: #ffffff;
+}
+.headline {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  position: relative;
+  height: 700px;
+  background-image: url(/PNG/welcome.png);
+  background-position: top;
+  background-size: cover;
+  top: 60px;
+  background-color: #c8acac0f;
+}
+.signinblock {
+  width: 340px;
+  height: 275px;
+  background-color: #ffffff;
+  z-index: 999;
+  margin-top: 135px;
+  border-radius: 1px;
+  display: block;
+}
+.signinblockhead {
+  width: 340px;
+  height: 10px;
+  z-index: 1000;
+  background: linear-gradient(270deg, #da291c 0%, #e3bfbf 100%);
+  border-radius: 1px 1px 0 0;
+}
+.signinblockcontent {
+  display: flex;
+  align-items: center;
+  width: 340px;
+  height: 265px;
+  flex-direction: column;
+}
+.signinblocktitle {
+  width: 310px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #0c0c0c;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.signinblock_close {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 0px;
+  bottom: 7px;
+  background-image: url(/PNG/icon_close.png);
+  background-color: #ffffff;
+  border: 0px;
+}
+.signinblockinput {
+  width: 310px;
+  height: 196px;
+  position: relative;
+}
+.signinemail {
+  width: 288px;
+  height: 47px;
+  padding: 0px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.signinemailtext {
+  width: 280px;
+  height: 17px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: darkgrey;
+  padding: 15px;
+  z-index: 1000;
+  top: 2px;
+  position: absolute;
+  text-align: left;
+}
+.signinpassword {
+  width: 288px;
+  height: 47px;
+  padding: 0px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.signinpasswordtext {
+  width: 280px;
+  height: 17px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: darkgrey;
+  padding: 15px;
+  z-index: 1000;
+  top: 62px;
+  position: absolute;
+  text-align: left;
+}
+.signinaccountbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 310px;
+  height: 47px;
+  background: #da291c;
+  border-radius: 1px;
+  margin-top: 10px;
+  border: 0px;
+  padding: 0px;
+}
+.signinaccountbuttontext {
+  position: absolute;
+  width: 270px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.clicktosignup {
+  position: absolute;
+  width: 310px;
+  height: 22px;
+  top: 165px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #0c0c0c;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+.signupblock {
+  width: 340px;
+  height: 332px;
+  background-color: #ffffff;
+  z-index: 999;
+  margin-top: 135px;
+  border-radius: 1px;
+  display: none;
+}
+.signupblockhead {
+  width: 340px;
+  height: 10px;
+  z-index: 1000;
+  background: linear-gradient(270deg, #da291c 0%, #e3bfbf 100%);
+  border-radius: 1px 1px 0 0;
+}
+.signupblockcontent {
+  display: flex;
+  align-items: center;
+  width: 340px;
+  height: 322px;
+  flex-direction: column;
+}
+.signupblocktitle {
+  width: 310px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #0c0c0c;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.signupblock_close {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 0px;
+  bottom: 7px;
+  background-image: url(/PNG/icon_close.png);
+  background-color: #ffffff;
+  border: 0px;
+}
+.signupblockinput {
+  width: 310px;
+  height: 250px;
+  position: relative;
+}
+.signupname {
+  width: 288px;
+  height: 47px;
+  padding: 0px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.signupnametext {
+  width: 280px;
+  height: 17px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: darkgrey;
+  padding: 15px;
+  z-index: 1000;
+  top: 2px;
+  position: absolute;
+  text-align: left;
+}
+.signupemail {
+  width: 288px;
+  height: 47px;
+  padding: 0px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.signupemailtext {
+  width: 280px;
+  height: 17px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: darkgrey;
+  padding: 15px;
+  z-index: 1000;
+  top: 62px;
+  position: absolute;
+  text-align: left;
+}
+.signuppassword {
+  width: 288px;
+  height: 47px;
+  padding: 0px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.signuppasswordtext {
+  width: 280px;
+  height: 17px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: darkgrey;
+  padding: 15px;
+  z-index: 1000;
+  top: 122px;
+  position: absolute;
+  text-align: left;
+}
+.signupaccountbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 310px;
+  height: 47px;
+  background: #da291c;
+  border-radius: 1px;
+  margin-top: 10px;
+  border: 0px;
+  padding: 0px;
+}
+.signupaccountbuttontext {
+  position: absolute;
+  width: 270px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.clicktosignin {
+  position: absolute;
+  width: 310px;
+  height: 22px;
+  top: 224px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #0c0c0c;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+.newresult {
+  position: absolute;
+  width: 310px;
+  height: 22px;
+  top: 224px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #666666;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.theresult {
+  position: absolute;
+  width: 310px;
+  height: 22px;
+  top: 165px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #666666;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  margin-top: 54px;
+}
+.slogan {
+  /*調整 */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: first baseline;
+  position: absolute;
+  width: 1200px;
+  top: 140px;
+  color: #f8f8f8;
+  text-shadow: 0px 0px 30px #aabbcc;
+  margin-left: 10px;
+}
+.text-title {
+  position: absolute;
+  width: 1180px;
+  height: 41px;
+  left: 0px;
+  top: 0px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #f8f8f8;
+  text-shadow: 0px 0px 30px #aabbcc;
+  left: 10px;
+}
+.text-subtitle {
+  position: absolute;
+  width: 1180px;
+  height: 22px;
+  left: 0px;
+  top: 56px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #f8f8f8;
+  left: 10px;
+}
+.search {
+  top: 100px;
+  background: #da291c;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  position: absolute;
+  width: 460px;
+  left: 10px;
+}
+.keyword {
+  width: 386px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  border: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  height: 44px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.inputtext {
+  position: absolute;
+  width: 370px;
+  height: 16px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: darkgrey;
+  padding: 15px;
+}
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: " ";
+  background: rgba(0, 0, 0, 0);
+  display: none;
+}
+.search-button {
+  background-image: url(/PNG/icon_search.png);
+  height: 30px;
+  width: 30px;
+  background-color: #489;
+  border-radius: 5px;
+  border: 0px;
+  position: absolute;
+  left: 420px;
+}
+.categoryview {
+  flex-wrap: wrap;
+  position: absolute;
+  width: 400px;
+  left: 0px;
+  top: 51px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px #aabbcc;
+  border-radius: 5px;
+  color: #000000;
+  display: none;
+  z-index: 999;
+}
+.categoryitem {
+  width: 120px;
+  height: 40px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 0px;
+  justify-content: flex-start;
+}
+.categoryitem_text {
+  display: flex;
+  flex: fit-content;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.categoryitem:hover {
+  background-color: #e8e8e8;
+}
+.mylist {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  width: 1200px;
+}
+.list-block {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1200px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.card {
+  display: inline-block;
+  width: 270px;
+  margin: 15px;
+}
+.image_container {
+  position: relative;
+  height: 100%;
+}
+.photo {
+  width: 268px;
+  position: relative;
+  height: 195px;
+  background-size: cover;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+}
+.photo_mask {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  background: black;
+  width: 100%;
+  height: 40px;
+  opacity: 0.6;
+}
+.mask_title {
+  color: #ffffff;
+  font-size: 16px;
+  bottom: 0px;
+  position: absolute;
+  left: 0px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  width: 250px;
+  height: 20px;
+  text-align: left;
+}
+.card_inform {
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  height: 43px;
+}
+.mrt_inform {
+  color: #000000;
+  font-size: 16px;
+  left: 0px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  width: 125px;
+  text-align: left;
+  height: 25px;
+}
+.category_inform {
+  color: #000000;
+  font-size: 16px;
+  left: 0px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  width: 125px;
+  text-align: right;
+  height: 25px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 0px;
+  background: #0c0c0c;
+  justify-content: center;
+  height: 104px;
+}
+.footer .text {
+  /* Body - Bold 16(13.3) */
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  /* 螢幕寬度小於 1200px, 套用這個區塊的 css*/
+  .menu {
+    width: 100vw;
+  }
+  .desktop-menu-left {
+    padding-left: 9vw;
+    padding-top: 5px;
+  }
+  .desktop-menu-right {
+    padding-right: 9vw;
+    padding-top: 2px;
+  }
+  .item {
+    flex: none; /*固定配置*/
+    margin: 10px;
+    text-align: center;
+  }
+  .slogan {
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+    top: 140px;
+    color: #f8f8f8;
+    text-shadow: 0px 0px 30px #aabbcc;
+    padding-left: 81vw;
+    left: 9vw;
+    max-width: 1200px;
+    width: fit-content;
+  }
+  .text-title {
+    position: absolute;
+    height: 41px;
+    left: 0px;
+    top: 0px;
+    font-family: "Noto Sans TC";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #f8f8f8;
+    text-shadow: 0px 0px 30px #aabbcc;
+    left: 10px;
+    max-width: fit-content;
+  }
+  .text-subtitle {
+    position: absolute;
+    height: 22px;
+    left: 0px;
+    top: 56px;
+    font-family: "Noto Sans TC";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    color: #f8f8f8;
+    left: 10px;
+    max-width: fit-content;
+  }
+  .list-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .desktop-menu-left {
+    padding: 0px;
+  }
+  .mytext {
+    margin: 0px;
+    width: 150px;
+    align-items: center;
+    padding: 10px;
+  }
+  .desktop-menu-right {
+    padding: 0px;
+  }
+  .item {
+    margin: 0px;
+    padding: 10px;
+  }
+  .slogan {
+    position: absolute;
+    width: 320px;
+    left: 10px;
+    padding-left: 0px;
+  }
+  .text-title {
+    width: 320px;
+    max-width: none;
+  }
+  .text-subtitle {
+    max-width: none;
+    width: 320px;
+  }
+  .search {
+    width: 285px;
+    height: 46px;
+  }
+  .keyword {
+    width: 216px;
+    height: 46px;
+  }
+  .inputtext {
+    width: 195px;
+  }
+  .search-button {
+    position: absolute;
+    left: 245px;
+  }
+  .card {
+    display: inline-block;
+    width: 321px;
+    margin: 10px;
+    height: 235px;
+    padding-bottom: 45px;
+    background-size: cover;
+  }
+  .card_inform {
+    justify-content: space-between;
+  }
+  .photo {
+    width: 321px;
+    position: relative;
+    height: 235px;
+    border-radius: 5px;
+    border: 1px solid #e8e8e8;
+  }
+}
