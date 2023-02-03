@@ -45,10 +45,10 @@ if (token != "") {
           console.log("已登入");
           const loginitemtext = document.querySelector(".loginitemtext");
           loginitemtext.innerHTML = "登出系統";
-          const loginitem = document.querySelector("#loginitem");
-          loginitem.onclick = function () {
-            logout();
-          };
+          // const loginitem = document.querySelector("#loginitem");
+          // loginitem.onclick = function () {
+          //   logout();
+          // };
         }
       }
     };
@@ -56,10 +56,10 @@ if (token != "") {
   }
 } else {
   console.log("未登入");
-  const loginitem = document.querySelector("#loginitem");
-  loginitem.onclick = function () {
-    signinblock();
-  };
+  // const loginitem = document.querySelector("#loginitem");
+  // loginitem.onclick = function () {
+  //   signinblock();
+  // };
 }
 
 function gohome() {
@@ -278,19 +278,19 @@ function logout() {
     console.log("已登出");
     const loginitemtext = document.querySelector(".loginitemtext");
     loginitemtext.innerHTML = "登入/註冊";
-    const loginitem = document.querySelector("#loginitem");
-    loginitem.onclick = function () {
-      signinblock();
-    };
+    // const loginitem = document.querySelector("#loginitem");
+    // loginitem.onclick = function () {
+    //   signinblock();
+    // };
   } // 登出會員 成功
 
   function signoutstate_error(data) {
     console.log("未登出");
     const loginitemtext = document.querySelector(".loginitemtext");
     loginitemtext.innerHTML = "登出系統";
-    const loginitem = document.querySelector("#loginitem");
-    loginitem.onclick = function () {
-      logout();
-    };
+    // const loginitem = document.querySelector("#loginitem");
+    // loginitem.onclick = function () {
+    //   logout();
+    // };
   } // 登出會員 失敗
 }
