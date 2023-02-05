@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Blueprint
 from flask import request 
 from flask import Response
 from flask import redirect 
@@ -9,6 +9,7 @@ from flask import jsonify
 from fastapi import FastAPI
 from mysql.connector import Error
 from mysql.connector import pooling
+import mysql
 import json
 import requests
 import jwt
@@ -18,6 +19,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+
+user_bp = Blueprint('user',__name__)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -32,30 +35,7 @@ connection_pool = pooling.MySQLConnectionPool(pool_name="my_connection_pool",
                                                 user=DATABASE_USER,
                                                 password=DATABASE_PASSWORD)
 
-app = FastAPI()
-
-app=Flask(__name__,
-    static_folder="public",
-    static_url_path="/") #建立 Application 物件)
-app.secret_key="any string but secret" #設定 Session 的密鑰    
-app.config["JSON_AS_ASCII"]=False
-app.config["JSON_SORT_KEYS"]=False
-app.config["TEMPLATES_AUTO_RELOAD"]=True
-
-# Pages
-@app.route("/")
-def index():
-	return render_template("index.html")
-
-@app.route("/login")
-def main():
-	return render_template("login.html")    
-
-@app.route("/play")
-def play():
-	return render_template("play.html")   
-
-@app.route("/api/user", methods=["POST"])
+@user_bp.route("/api/user", methods=["POST"])
 def signup():
 
     #註冊一個新一個新的會員
@@ -122,7 +102,7 @@ def signup():
                     "ok": True
                     })),200
 
-@app.route("/api/user/auth", methods=["GET"])
+@user_bp.route("/api/user/auth", methods=["GET"])
 def signinget():
 
     get_token = request.cookies.get("token")
@@ -174,7 +154,7 @@ def signinget():
                     }
                     }))    
 
-@app.route("/api/user/auth", methods=["PUT"])
+@user_bp.route("/api/user/auth", methods=["PUT"])
 def signinput():
 
     put = request.get_json()
@@ -237,7 +217,7 @@ def signinput():
 
         return response
   
-@app.route("/api/user/auth", methods=["DELETE"])
+@user_bp.route("/api/user/auth", methods=["DELETE"])
 def signout():
 
     delete = request.get_json()
@@ -286,5 +266,3 @@ def signout():
 
 
         return response
-
-app.run(port=3030, debug=True)
