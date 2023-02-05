@@ -9,6 +9,7 @@ from flask import jsonify
 from fastapi import FastAPI
 from mysql.connector import Error
 from mysql.connector import pooling
+import mysql
 import json
 import requests
 import jwt
