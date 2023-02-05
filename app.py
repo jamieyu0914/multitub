@@ -47,6 +47,14 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 def index():
 	return render_template("index.html")
 
+@app.route("/login")
+def main():
+	return render_template("login.html")    
+
+@app.route("/play")
+def play():
+	return render_template("play.html")   
+
 @app.route("/api/user", methods=["POST"])
 def signup():
 

@@ -56,6 +56,7 @@ if (token != "") {
   }
 } else {
   console.log("未登入");
+  document.location.href = "/login";
   // const loginitem = document.querySelector("#loginitem");
   // loginitem.onclick = function () {
   //   signinblock();
