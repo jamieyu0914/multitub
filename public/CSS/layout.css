@@ -3,7 +3,10 @@ html {
 }
 .desktop-view {
   text-align: center;
-  display: block;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 .mymenu {
   display: flex;
@@ -13,6 +16,7 @@ html {
   z-index: 998;
   background: white;
   position: fixed;
+  border: 1px solid #e8e8e8;
 }
 .menu {
   display: flex;
@@ -59,7 +63,7 @@ html {
   font-size: 16px;
   color: #666666;
   border: 0px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .headline {
   /* Auto layout */
@@ -69,17 +73,102 @@ html {
   align-items: flex-start;
   padding: 0px;
   position: relative;
-  height: 700px;
-  /* background-image: url(/PNG/welcome.png); */
+  background-color: #da291c;
   background-position: top;
   background-size: cover;
-  top: 60px;
+  top: 54px;
   background-color: #c8acac0f;
 }
+.view-list {
+  display: flex;
+}
+.view-left {
+  background-color: #fff;
+  width: 5vw;
+  border: 1px solid #e8e8e8;
+}
+.view-right {
+  background-color: #fff;
+  width: 95vw;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-image: url(/PNG/film.png);
+}
+.categoryline {
+  display: flex;
+  background-color: #fff;
+  height: 8vh;
+  width: 95vw;
+  padding-left: 100px;
+}
+.categorybutton {
+  height: 32px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  color: #000000;
+  background-color: #e6e6e6;
+  border-radius: 5px;
+  border: 0px;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  top: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.new_categorybutton_inform {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.searchblock {
+  width: 520px;
+  height: 165px;
+  background-color: #ffffff;
+  z-index: 999;
+  margin-top: 135px;
+  border-radius: 1px;
+  background-color: #fff;
+  position: fixed;
+  border-radius: 0px;
+  border: 0px solid #f44336;
+  display: none;
+}
+.searchblockhead {
+  width: 520px;
+  height: 10px;
+  z-index: 1000;
+  background: linear-gradient(270deg, #da291c 0%, #e3bfbf 100%);
+  border-radius: 1px 1px 0 0;
+}
+.searchblocktitle {
+  width: 310px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #0c0c0c;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.searchblocktitletext {
+  position: relative;
+  top: 10px;
+  left: 90px;
+}
+/* 最後結尾 */
 .signinblock {
   width: 340px;
   height: 275px;
-  background-color: #ffffff;
+  background-color: #fff;
   z-index: 999;
   margin-top: 135px;
   border-radius: 1px;
@@ -119,7 +208,7 @@ html {
   right: 0px;
   bottom: 7px;
   /* background-image: url(/PNG/icon_close.png); */
-  background-color: #ffffff;
+  background-color: #fff;
   border: 0px;
 }
 .signinblockinput {
@@ -131,7 +220,7 @@ html {
   width: 288px;
   height: 47px;
   padding: 0px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #cccccc;
   border-radius: 1px;
   padding-left: 10px;
@@ -156,7 +245,7 @@ html {
   width: 288px;
   height: 47px;
   padding: 0px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #cccccc;
   border-radius: 1px;
   margin-top: 10px;
@@ -203,7 +292,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: #fff;
 }
 .clicktosignup {
   position: absolute;
@@ -226,7 +315,7 @@ html {
 .signupblock {
   width: 340px;
   height: 332px;
-  background-color: #ffffff;
+  background-color: #fff;
   z-index: 999;
   margin-top: 135px;
   border-radius: 1px;
@@ -266,7 +355,7 @@ html {
   right: 0px;
   bottom: 7px;
   /* background-image: url(/PNG/icon_close.png); */
-  background-color: #ffffff;
+  background-color: #fff;
   border: 0px;
 }
 .signupblockinput {
@@ -278,7 +367,7 @@ html {
   width: 288px;
   height: 47px;
   padding: 0px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #cccccc;
   border-radius: 1px;
   padding-left: 10px;
@@ -303,7 +392,7 @@ html {
   width: 288px;
   height: 47px;
   padding: 0px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #cccccc;
   border-radius: 1px;
   margin-top: 10px;
@@ -329,7 +418,7 @@ html {
   width: 288px;
   height: 47px;
   padding: 0px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #cccccc;
   border-radius: 1px;
   margin-top: 10px;
@@ -376,7 +465,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: #fff;
 }
 .clicktosignin {
   position: absolute;
@@ -494,19 +583,21 @@ html {
   left: 10px;
 }
 .keyword {
-  width: 386px;
+  width: 300px;
   font-family: Noto Sans TC;
   font-weight: 700;
-  border: 0px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
   height: 44px;
   padding-left: 10px;
   padding-right: 10px;
+  position: relative;
+  right: 31px;
+  border-radius: 0px;
+  border: 1px solid #9e9e9e;
+  top: 5px;
 }
 .inputtext {
   position: absolute;
-  width: 370px;
+  width: 290px;
   height: 16px;
   font-family: "Noto Sans TC";
   font-style: normal;
@@ -515,8 +606,12 @@ html {
   line-height: 13px;
   display: flex;
   align-items: center;
-  color: darkgrey;
+  color: #9e9e9e;
   padding: 15px;
+  top: 72px;
+  left: 68px;
+  border: 1px solid #9e9e9e;
+  border-radius: 0px;
 }
 .blocker {
   position: fixed;
@@ -525,18 +620,23 @@ html {
   bottom: 0;
   right: 0;
   content: " ";
-  background: rgba(0, 0, 0, 0);
+  background: rgb(0 0 0 / 56%);
   display: none;
+  z-index: 998;
 }
 .search-button {
-  /* background-image: url(/PNG/icon_search.png); */
-  height: 30px;
-  width: 30px;
-  background-color: #489;
-  border-radius: 5px;
+  height: 48px;
+  width: 60px;
+  background-color: #da291c;
+  border-radius: 0px;
   border: 0px;
   position: absolute;
-  left: 420px;
+  left: 395px;
+  top: 71px;
+}
+.search-button-text {
+  font-size: 20px;
+  color: #fff;
 }
 .categoryview {
   flex-wrap: wrap;
@@ -544,7 +644,7 @@ html {
   width: 400px;
   left: 0px;
   top: 51px;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0px 0px 20px #aabbcc;
   border-radius: 5px;
   color: #000000;
@@ -561,7 +661,7 @@ html {
   display: flex;
   align-items: center;
   color: #000000;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 5px;
   border: 0px;
   justify-content: flex-start;
@@ -587,27 +687,28 @@ html {
   display: flex;
   flex-wrap: wrap;
   width: 1200px;
-  margin-bottom: 30px;
-  margin-top: 30px;
   justify-content: flex-start;
   align-items: center;
 }
 .card {
   display: inline-block;
-  width: 270px;
-  margin: 15px;
+  width: 277.98px;
+  margin: 11px;
 }
 .image_container {
   position: relative;
   height: 100%;
 }
 .photo {
-  width: 268px;
+  width: 277.98px;
   position: relative;
-  height: 195px;
-  background-size: cover;
+  height: 156.36px;
+  background-size: contain;
   border-radius: 5px;
-  border: 1px solid #e8e8e8;
+  border: 0px solid #e8e8e8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .photo_mask {
   position: absolute;
@@ -619,7 +720,7 @@ html {
   opacity: 0.6;
 }
 .mask_title {
-  color: #ffffff;
+  color: #fff;
   font-size: 16px;
   bottom: 0px;
   position: absolute;
@@ -629,33 +730,26 @@ html {
   width: 250px;
   height: 20px;
   text-align: left;
+  line-height: 25px;
 }
 .card_inform {
   display: flex;
   justify-content: space-evenly;
-  border-radius: 5px;
+  border-radius: 0px 0px 5px 5px;
   border: 1px solid #e8e8e8;
-  height: 43px;
+  height: 66px;
+  background-color: #fff;
 }
-.mrt_inform {
+.video_inform {
   color: #000000;
   font-size: 16px;
   left: 0px;
   padding: 10px;
   font-family: Noto Sans TC;
-  width: 125px;
+  width: 250px;
   text-align: left;
   height: 25px;
-}
-.category_inform {
-  color: #000000;
-  font-size: 16px;
-  left: 0px;
-  padding: 10px;
-  font-family: Noto Sans TC;
-  width: 125px;
-  text-align: right;
-  height: 25px;
+  font-weight: 700;
 }
 
 .footer {
@@ -667,6 +761,7 @@ html {
   background: #0c0c0c;
   justify-content: center;
   height: 104px;
+  top: 60px;
 }
 .footer .text {
   /* Body - Bold 16(13.3) */
@@ -675,7 +770,7 @@ html {
   font-weight: 700;
   font-size: 16px;
   line-height: 13px;
-  color: #ffffff;
+  color: #fff;
 }
 
 @media (max-width: 1200px) {
