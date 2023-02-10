@@ -16,8 +16,17 @@ import time
 import datetime
 from dotenv import load_dotenv
 import os
+import requests
+import pprint
+import argparse
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
 
 load_dotenv()
+
+DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY")
+youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -53,7 +62,11 @@ def main():
 
 @app.route("/play")
 def play():
-	return render_template("play.html")   
+	return render_template("play.html")  
+
+@app.route("/play/<id>")
+def attraction(id):
+	return render_template("play.html")    
 
 @app.route("/api/user", methods=["POST"])
 def signup():
@@ -286,5 +299,66 @@ def signout():
 
 
         return response
+
+@app.route("/api/search", methods=["POST"])
+def api_search_post():
+
+    #新增一個主題分類
+    post = request.get_json()
+    keyword = post["keyword"]
+    print(keyword)
+
+    return (jsonify({
+            "ok": True
+            })),200
+
+@app.route("/api/search", methods=["GET"])
+def api_search(): 
+    
+    keyword = request.args.get("keyword","")
+    # keyword="蘋果發表會"
+    print("搜尋主題詞"+keyword)
+      
+    #search
+    youtube_request = youtube.search().list(
+        part="snippet",
+        maxResults=50,
+        q=keyword
+    )
+    youtube_response = youtube_request.execute()
+    # print(response,"\n")
+    # nums = (len(youtube_response)-1) 
+    # print(nums)
+    results = []
+    nextPageToken = youtube_response["nextPageToken"] #CDIQAA
+    # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
+    for i in range(0,49):
+        print("------")
+        videoId=youtube_response["items"][i]["id"]["videoId"]
+        title=youtube_response["items"][i]["snippet"]["title"]
+        coverurl=youtube_response["items"][i]["snippet"]["thumbnails"]["high"]["url"]
+        channelTitle=youtube_response["items"][i]["snippet"]["channelTitle"]
+        print(videoId)
+        print(title)
+        print(coverurl)
+        print(channelTitle)
+        print("------")
+        result = {
+                "thisId" : i,
+                "videoId":videoId,
+                "title":title,
+                "coverurl":coverurl,
+                "channelTitle": channelTitle
+                    }
+        results.append(result)
+
+    print(nextPageToken)
+    # print(prevPageToken)
+    return jsonify({
+            "data": results
+            }     ), 200  
+
+
+
 
 app.run(port=3030, debug=True)
