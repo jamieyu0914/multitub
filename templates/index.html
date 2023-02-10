@@ -23,11 +23,173 @@
           </div>
         </div>
       </div>
-
-      <div class="headline" id="headline">
+      <div class="blocker" onclick="hideview()"></div>
+      <div class="searchblock">
+        <div class="searchblockhead"></div>
+        <div class="searchblocktitle">
+          <text class="searchblocktitletext">新主題關鍵字</text>
+        </div>
+        <input
+          type="text"
+          name="keyword"
+          class="keyword"
+          id="keyword"
+          onfocus="categoryview()"
+        />
+        <text class="inputtext" onclick="categoryview()">輸入主題名稱查詢</text>
+        <button class="search-button" onclick="getsearchdata()">
+          <text class="search-button-text">搜尋</text>
+        </button>
       </div>
-
-      
+      <div class="blocker" onclick="hideview()"></div>
+      <div class="headline" id="headline">
+        <div class="view-list" id="view-list">
+          <div class="view-left" id="view-left"></div>
+          <div class="view-right" id="view-right">
+            <div class="categoryline" id="categoryline">
+              <!-- <div class="categorybutton" id="categorybutton1"></div>
+            <div class="categorybutton" id="categorybutton2"></div>
+            <div class="categorybutton" id="categorybutton3"></div>
+            <div class="categorybutton" id="categorybutton4"></div>
+            <div class="categorybutton" id="categorybutton5"></div>
+            <div class="categorybutton" id="categorybutton6"></div>
+            <div class="categorybutton" id="categorybutton7"></div>
+            <div class="categorybutton" id="categorybutton8"></div> -->
+            </div>
+            <div class="list-block">
+              <!-- <div class="card" id="card1">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card2">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card3">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card4">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card5">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card6">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card7">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div>
+            <div class="card" id="card8">
+              <div class="image_container">
+                <div
+                  class="photo"
+                  style="
+                    background-image: url('https://i.ytimg.com/vi/6VFQr_Kz6f0/maxresdefault.jpg');
+                  "
+                ></div>
+                <div class="photo_mask"></div>
+                <div class="mask_title">國立故宮</div>
+              </div>
+              <div class="card_inform">
+                <div class="mrt_inform">士林</div>
+                <div class="category_inform">藝文館所</div>
+              </div>
+            </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <footer class="footer">
     <footer class="text">COPYRIGHT © 2023 MultiTube</footer>
