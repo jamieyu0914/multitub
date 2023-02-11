@@ -42,6 +42,7 @@ html {
 }
 .mytext {
   margin: 10px;
+  cursor: pointer;
 }
 .desktop-menu-right {
   width: 600px;
@@ -54,16 +55,32 @@ html {
   height: 54px;
 }
 .item {
-  flex: none; /*固定配置*/
+  flex: none;
   margin: 10px;
   text-align: center;
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  color: #666666;
+  color: #544343;
   border: 0px;
   background-color: #fff;
+}
+.usericon {
+  min-width: 32px;
+  min-height: 32px;
+  background-image: url(/PNG/woman.png);
+  background-size: contain;
+  border: 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  border: 2px solid #543343;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.loginitemtext {
+  cursor: pointer;
 }
 .headline {
   /* Auto layout */
@@ -102,7 +119,9 @@ html {
   background-color: #fff;
   height: 8vh;
   width: 95vw;
-  padding-left: 100px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 .categorybutton {
   height: 32px;
@@ -121,10 +140,12 @@ html {
   top: 15px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .new_categorybutton_inform {
   margin-right: 5px;
   margin-left: 5px;
+  cursor: pointer;
 }
 .searchblock {
   width: 520px;
@@ -613,16 +634,21 @@ html {
   border: 1px solid #9e9e9e;
   border-radius: 0px;
 }
-.blocker {
+.loadding-blocker {
   position: fixed;
-  top: 0;
+  top: 54px;
   left: 0;
   bottom: 0;
   right: 0;
   content: " ";
-  background: rgb(0 0 0 / 56%);
-  display: none;
+  background: #fff;
+  display: block;
+  height: 72px;
   z-index: 998;
+  background-image: url(/PNG/loaddingblocks.gif);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: auto;
 }
 .search-button {
   height: 48px;
@@ -694,6 +720,7 @@ html {
   display: inline-block;
   width: 277.98px;
   margin: 11px;
+  cursor: pointer;
 }
 .image_container {
   position: relative;
@@ -761,7 +788,7 @@ html {
   background: #0c0c0c;
   justify-content: center;
   height: 104px;
-  top: 60px;
+  top: 54px;
 }
 .footer .text {
   /* Body - Bold 16(13.3) */

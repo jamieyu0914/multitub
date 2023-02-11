@@ -21,6 +21,14 @@
           <div class="desktop-menu-left">
             <text class="mytext" onclick="gohome()">MultiTube</text>
           </div>
+          <div class="desktop-menu-right">
+            <button class="item" onclick="gomember()">
+              <img class="usericon" />
+            </button>
+            <button class="item" id="loginitem" onclick="logout();">
+              <text class="loginitemtext">登出</text>
+            </button>
+          </div>
         </div>
       </div>
       <div class="blocker" onclick="hideview()"></div>
@@ -46,6 +54,7 @@
         <div class="view-list" id="view-list">
           <div class="view-left" id="view-left"></div>
           <div class="view-right" id="view-right">
+            <div class="loadding-blocker"></div>
             <div class="categoryline" id="categoryline">
               <!-- <div class="categorybutton" id="categorybutton1"></div>
             <div class="categorybutton" id="categorybutton2"></div>

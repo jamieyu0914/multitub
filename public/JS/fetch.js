@@ -9,6 +9,7 @@ var newkeyword = "undefined";
 var thisuserid;
 
 var cookie = document.cookie;
+
 //判斷是否為登入狀態
 if ((cookie != "") & (cookie != "token=")) {
   token = cookie.split("=")[1];
@@ -17,9 +18,10 @@ if ((cookie != "") & (cookie != "token=")) {
 }
 
 if (token != "") {
-  console.log("HELLO HERE");
+  // console.log("HELLO HERE");
 
   function parseJwt(token) {
+    console.time("2 的 10 次方花費的時間");
     //decode JWT
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -32,7 +34,7 @@ if (token != "") {
         })
         .join("")
     );
-    // console.log(JSON.parse(jsonPayload));
+    console.timeEnd("2 的 10 次方花費的時間");
     return JSON.parse(jsonPayload);
   }
 
@@ -40,52 +42,72 @@ if (token != "") {
 
   getData("/api/user/auth");
   function getData(url) {
+    console.time("2 的 10 次方花費的時間");
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onload = function () {
       if (xhr.status === 200) {
-        // console.log(JSON.parse(this.response));
         login_response = JSON.parse(this.response);
-        console.log(login_response["data"]);
+        // console.log(login_response["data"]);
         if (login_response["data"] != null) {
           thisuserid = login_response["data"]["userid"];
-          console.log(thisuserid);
+          console.log("Hi~~ " + thisuserid);
           console.log("已登入");
           getorigincategorybutton(thisuserid);
-          // postcategoryvideo(thisuserid, keyword);
-          // const loginitemtext = document.querySelector(".loginitemtext");
-          // loginitemtext.innerHTML = "登出系統";
-          // const loginitem = document.querySelector("#loginitem");
-          // loginitem.onclick = function () {
-          //   logout();
-          // };
         }
       }
     };
+    console.timeEnd("2 的 10 次方花費的時間");
     xhr.send(null);
   }
 } else {
   console.log("未登入");
   document.location.href = "/login";
-  // let currentUrl = window.location.href + "login";
-  // // window.location.replace = "http://127.0.0.1:3030/login";
-  // // console.log(currentUrl);
-  // window.location.assign(`${currentUrl}`);
-  // // const loginitem = document.querySelector("#loginitem");
-  // // loginitem.onclick = function () {
-  // //   signinblock();
-  // // };
+}
+
+function logout() {
+  console.time("2 的 10 次方花費的時間");
+  let cookiedata = parseJwt(token);
+
+  const data = {
+    id: cookiedata["id"],
+    userid: cookiedata["userid"],
+    useremail: cookiedata["useremail"],
+  };
+  console.log(cookiedata["id"]);
+  console.log(cookiedata["userid"]);
+  console.log(cookiedata["useremail"]);
+
+  fetch(`/api/user/auth`, {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then(function (response) {
+    response.json().then(function (data) {
+      // console.log(data);
+      message = data["message"];
+      if (data["ok"] == true) {
+        document.location.href = "/";
+      } else if (data["error"] == true) {
+        console.log("尚未登出");
+      }
+    });
+  });
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getorigincategorybutton(thisuserid) {
+  console.time("2 的 10 次方花費的時間");
   //清空資料
   let rest = document.querySelector(".categoryline");
   rest.innerHTML = "";
 
   //讀取資料
   isLoading = true;
-  console.log(isLoading);
-  console.log(thisuserid);
+  // console.log(isLoading);
+  // console.log(thisuserid);
 
   fetch(`/api/topic?userid=${thisuserid}`)
     .then(function (response) {
@@ -95,11 +117,12 @@ function getorigincategorybutton(thisuserid) {
       //整理
       let array = [];
       let post = data["data"];
+      // console.log(post);
       let length = post.length;
-      console.log(length);
+      // console.log(length);
       for (i = 0; i < length; i++) {
         let posts = data["data"][i];
-        console.log(posts["topic"]);
+        // console.log(posts["topic"]);
         let topic = posts["topic"];
         //製作新增主題按鈕 //N次
         let line = "categoryline";
@@ -120,18 +143,26 @@ function getorigincategorybutton(thisuserid) {
         _button_div.appendChild(_categorybutton_inform);
         newbutton[0].appendChild(_button_div);
       }
-      var lasttopic = data["data"][length - 1]["topic"];
-      // console.log(data["data"]);
-      getcategorybutton();
-      postcategoryvideo(thisuserid, lasttopic);
+      if (post.length == 0) {
+        var lasttopic = "蘋果發表會"; // 預設關鍵字為「蘋果發表會」
+        getcategorybutton();
+        postcategoryvideo(thisuserid, lasttopic);
+        document.location.href = "/";
+      } else {
+        lasttopic = data["data"][length - 1]["topic"];
+        getcategorybutton();
+        postcategoryvideo(thisuserid, lasttopic);
+      }
     });
   isLoading = false;
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategorybutton() {
+  console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
-  console.log(isLoading);
+  // console.log(isLoading);
 
   //製作新增主題按鈕 //1次
   let line = "categoryline";
@@ -150,148 +181,56 @@ function getcategorybutton() {
   //放到位置上
   _button_div.appendChild(_categorybutton_inform);
   newbutton[0].appendChild(_button_div);
-}
-
-function getnewcategorybutton(keyword) {
-  //清空舊資料
-  let rest = document.querySelector(".categoryline");
-  rest.innerHTML = "";
-  console.log(keyword);
-
-  //讀取資料
-  isLoading = true;
-  console.log(isLoading);
-
-  //製作新增主題按鈕 //1次
-  let line = "categoryline";
-  let newbutton = document.getElementsByClassName(line);
-  let _button_div = document.createElement("div");
-  _button_div.classList.add("categorybutton");
-
-  let _categorybutton_inform = document.createElement("div");
-  // _categorybutton_inform.onclick = function () {
-  //   addtopic();
-  // };
-  _categorybutton_inform.classList.add("new_categorybutton_inform");
-
-  let _categorybutton_inform_text = document.createTextNode(keyword);
-  console.log(keyword);
-  _categorybutton_inform.appendChild(_categorybutton_inform_text);
-
-  //放到位置上
-  _button_div.appendChild(_categorybutton_inform);
-  newbutton[0].appendChild(_button_div);
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function addtopic() {
-  console.log("hi");
+  console.time("2 的 10 次方花費的時間");
+  // console.log("hi");
   let _searchblock_div = document.querySelector(".searchblock");
   _searchblock_div.style.cssText = "display:block";
   let _blocker_div = document.querySelector(".blocker");
   _blocker_div.style.cssText = "display:block";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function hideview() {
+  console.time("2 的 10 次方花費的時間");
   const searchblock_view = document.querySelector(".searchblock");
   searchblock_view.style.display = "none";
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "none";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function categoryview() {
+  console.time("2 的 10 次方花費的時間");
   const thetext = document.querySelector(".inputtext");
   thetext.style.display = "none";
 
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "flex";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
-// function getcategoryvideo() {
-//   // keyword = "五月天";
-//   console.log(keyword + "123");
-//   // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
-//   fetch(`/api/search?keyword=${keyword}`)
-//     .then(function (response) {
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       //整理
-//       let array = [];
-//       for (i = 0; i < 50; i++) {
-//         // console.log("---------");
-//         // console.log(nextPage);
-//         let posts = data["data"][i];
-//         // console.log(posts);
-//         // let videoId = posts["videoId"];
-//         videoId = i;
-//         let title = posts["title"];
-//         titlelength = title.length;
-//         if (titlelength > 32) {
-//           title = title.substring(0, 32) + "...";
-//         }
-//         let coverurl = posts["coverurl"];
-//         let channelTitle = posts["channelTitle"];
-
-//         //製作分類影片卡 //跑6次
-//         let list = "list-block";
-//         let newcard = document.getElementsByClassName(list);
-//         let _card_div = document.createElement("div");
-//         _card_div.classList.add("card");
-
-//         let _image_container_div = document.createElement("div");
-//         _image_container_div.classList.add("image_container");
-
-//         let _photo_div = document.createElement("div");
-//         _photo_div.id = videoId;
-//         _photo_div.classList.add("photo");
-//         _photo_div.style.cssText = "background-image: url(" + coverurl + ")";
-//         let _photo_mask = document.createElement("div");
-//         _photo_mask.classList.add("photo_mask");
-//         let _mask_title = document.createElement("div");
-//         _mask_title.id = videoId;
-//         _mask_title.classList.add("mask_title");
-//         let _newcard_title_text = document.createTextNode(channelTitle);
-//         _mask_title.appendChild(_newcard_title_text);
-
-//         let _card_inform = document.createElement("div");
-//         _card_inform.classList.add("card_inform");
-//         let _video_inform = document.createElement("div");
-//         _video_inform.classList.add("video_inform");
-//         let _video_inform_text = document.createTextNode(title);
-//         _video_inform.appendChild(_video_inform_text);
-
-//         //放到位置上
-//         _image_container_div.appendChild(_photo_div);
-//         _image_container_div.appendChild(_photo_mask);
-//         _image_container_div.appendChild(_mask_title);
-
-//         _card_inform.appendChild(_video_inform);
-//         _card_div.appendChild(_image_container_div);
-//         _card_div.appendChild(_card_inform);
-
-//         newcard[0].appendChild(_card_div);
-//       }
-//       console.log(data["data"]);
-//     });
-//   isLoading = false;
-// }
-// getcategoryvideo();
-
 function getsearchdata() {
+  console.time("2 的 10 次方花費的時間");
   var newkeyword = document.getElementById("keyword").value;
-  console.log(newkeyword);
+  // console.log(newkeyword);
   keyword = newkeyword;
   postcategoryvideo(thisuserid, newkeyword);
   hideview();
   document.location.href = "/";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function postcategoryvideo(thisuserid, lasttopic) {
+  console.time("2 的 10 次方花費的時間");
   //清空舊資料
   let rest = document.querySelector(".list-block");
   rest.innerHTML = "";
-  console.log(newkeyword);
-  console.log(lasttopic);
+  // console.log(newkeyword);
+  // console.log(lasttopic);
 
   keyword = lasttopic;
 
@@ -307,28 +246,29 @@ function postcategoryvideo(thisuserid, lasttopic) {
     },
   }).then(function (response) {
     response.json().then(function (data) {
-      console.log(data);
+      // console.log(data);
       message = data["message"];
       if (data["ok"] == true) {
-        console.log(data["ok"]);
-        // signupstate_ok(data);
-        console.log(keyword + "!!");
+        // console.log(data["ok"]);
+
+        // console.log(keyword + "!!");
         getcategoryvideo(keyword);
       } else {
-        console.log(data["error"]);
-        // signupstate_error(data);
+        // console.log(data["error"]);
       }
     });
   });
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategoryvideo(keyword) {
+  console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
-  console.log(isLoading);
+  // console.log(isLoading);
   let rest = document.querySelector(".list-block");
   rest.innerHTML = "";
-  console.log(keyword);
+  // console.log(keyword);
   // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
   fetch(`/api/search?keyword=${keyword}`)
     .then(function (response) {
@@ -337,13 +277,23 @@ function getcategoryvideo(keyword) {
     .then(function (data) {
       //整理
       let array = [];
-      for (i = 0; i < 50; i++) {
+      for (i = 0; i < 20; i++) {
         // console.log("---------");
         // console.log(nextPage);
         let posts = data["data"][i];
         // console.log(posts);
         let itemId = posts["itemId"];
-        console.log(itemId);
+        if (itemId["kind"] == "youtube#channel") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["channelId"];
+        } else if (itemId["kind"] == "youtube#youtube#playlist") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["playlistId"];
+        } else if (itemId["kind"] == "youtube#video") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["videoId"];
+        }
+        // console.log(type, tag);
         thisvideoidnumber = i;
         let title = posts["title"];
         titlelength = title.length;
@@ -364,12 +314,15 @@ function getcategoryvideo(keyword) {
 
         let _photo_div = document.createElement("div");
         _photo_div.id = thisvideoidnumber;
+        _photo_div.name = type + "/" + tag;
+
         _photo_div.classList.add("photo");
         _photo_div.style.cssText = "background-image: url(" + coverurl + ")";
         let _photo_mask = document.createElement("div");
         _photo_mask.classList.add("photo_mask");
         let _mask_title = document.createElement("div");
         _mask_title.id = thisvideoidnumber;
+        _mask_title.name = type + "/" + tag;
         _mask_title.classList.add("mask_title");
         let _newcard_title_text = document.createTextNode(channelTitle);
         _mask_title.appendChild(_newcard_title_text);
@@ -378,6 +331,8 @@ function getcategoryvideo(keyword) {
         _card_inform.classList.add("card_inform");
         let _video_inform = document.createElement("div");
         _video_inform.classList.add("video_inform");
+        _video_inform.id = thisvideoidnumber;
+        _video_inform.name = type + "/" + tag;
         let _video_inform_text = document.createTextNode(title);
         _video_inform.appendChild(_video_inform_text);
 
@@ -392,33 +347,45 @@ function getcategoryvideo(keyword) {
 
         newcard[0].appendChild(_card_div);
       }
-      console.log(data["data"]);
+      // console.log(data["data"]);
     });
   isLoading = false;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "none";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
-// getcategoryvideo();
 
 function gohome() {
+  console.time("2 的 10 次方花費的時間");
   document.location.href = "/";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
+console.time("2 的 10 次方花費的時間");
 var card = document.getElementsByClassName("card");
 window.addEventListener(
   "click",
   function once(e) {
     if (e.target.className == "photo") {
-      console.log("點擊 影片編號" + e.target.id);
+      // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
-      document.location.href = `/play/${videoId}`;
+      let thisitemtag = e.target.name;
+      console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
     } else if (e.target.className == "mask_title") {
-      console.log("點擊 影片編號" + e.target.id);
+      // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
-      document.location.href = `/play/${videoId}`;
+      let thisitemtag = e.target.name;
+      console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
     } else if (e.target.className == "video_inform") {
-      console.log("點擊 影片編號" + e.target.id);
+      // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
-      document.location.href = `/play/${videoId}`;
+      let thisitemtag = e.target.name;
+      console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
     }
   },
   false
 );
+console.timeEnd("2 的 10 次方花費的時間");

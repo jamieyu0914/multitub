@@ -7,6 +7,9 @@ var keyword = "蘋果發表會";
 var newkeyword = "undefined";
 
 var cookie = document.cookie;
+
+var thisitemId = window.location.href.split("/play/video/")[1];
+console.log(thisitemId);
 //判斷是否為登入狀態
 if ((cookie != "") & (cookie != "token=")) {
   token = cookie.split("=")[1];
@@ -80,6 +83,6 @@ function onYouTubePlayerAPIReady() {
   player = new YT.Player("ytplayer", {
     height: "360",
     width: "640",
-    videoId: "jeqH4eMGjhY",
+    videoId: thisitemId,
   });
 }
