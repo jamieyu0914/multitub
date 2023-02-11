@@ -65,9 +65,17 @@ def main():
 def play():
 	return render_template("play.html")  
 
-@app.route("/play/<id>")
-def playto(id):
-	return render_template("play.html")    
+@app.route("/play/channel/<channel_id>")
+def playtochannel(channel_id):
+	return render_template("play.html")  
+
+@app.route("/play/playlist/<playlist_id>")
+def playtoplaylist(playlist_id):
+	return render_template("play.html")  
+
+@app.route("/play/video/<video_id>")
+def playtovideo(video_id):
+	return render_template("play.html")  
 
 @app.route("/api/user", methods=["POST"])
 def signup():
@@ -468,7 +476,7 @@ def api_search():
     #search
     youtube_request = youtube.search().list(
         part="snippet",
-        maxResults=50,
+        maxResults=21,
         q=keyword
     )
     youtube_response = youtube_request.execute()
@@ -480,7 +488,7 @@ def api_search():
     # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
     # print(youtube_response["items"])
     # print(results['id'].get('videoId'))
-    for i in range(0,49):
+    for i in range(0,20):
         # print("------")
         title=youtube_response["items"][i]["snippet"]["title"]
         coverurl=youtube_response["items"][i]["snippet"]["thumbnails"]["high"]["url"]

@@ -5,6 +5,7 @@ var nextPage;
 var cookie = document.cookie;
 //判斷是否為登入狀態
 if ((cookie != "") & (cookie != "token=")) {
+  gohome();
   token = cookie.split("=")[1];
 } else {
   token = "";
@@ -12,7 +13,6 @@ if ((cookie != "") & (cookie != "token=")) {
 
 if (token != "") {
   console.log("HELLO HERE");
-
   function parseJwt(token) {
     //decode JWT
     var base64Url = token.split(".")[1];

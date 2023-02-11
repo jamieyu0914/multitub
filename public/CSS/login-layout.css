@@ -38,6 +38,7 @@ html {
 }
 .mytext {
   margin: 10px;
+  cursor: pointer;
 }
 .desktop-menu-right {
   width: 600px;
@@ -190,6 +191,7 @@ html {
   margin-top: 10px;
   border: 0px;
   padding: 0px;
+  cursor: pointer;
 }
 .signinaccountbuttontext {
   position: absolute;
@@ -204,6 +206,7 @@ html {
   align-items: center;
   justify-content: center;
   color: #ffffff;
+  cursor: pointer;
 }
 .clicktosignup {
   position: absolute;
@@ -222,6 +225,9 @@ html {
   color: #0c0c0c;
   padding-bottom: 15px;
   padding-top: 10px;
+}
+.clicktosignuptext {
+  cursor: pointer;
 }
 .signupblock {
   width: 340px;
@@ -395,6 +401,9 @@ html {
   color: #0c0c0c;
   padding-bottom: 15px;
   padding-top: 10px;
+}
+.clicktosignuptext {
+  cursor: pointer;
 }
 .newresult {
   position: absolute;
