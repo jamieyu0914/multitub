@@ -26,7 +26,7 @@ from googleapiclient.errors import HttpError
 load_dotenv()
 
 
-DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY_I")
+DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY_II")
 youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
@@ -67,11 +67,11 @@ def play():
 
 @app.route("/play/channel/<channel_id>")
 def playtochannel(channel_id):
-	return render_template("play.html")  
+	return render_template("channel.html")  
 
 @app.route("/play/playlist/<playlist_id>")
 def playtoplaylist(playlist_id):
-	return render_template("play.html")  
+	return render_template("playlist.html")  
 
 @app.route("/play/video/<video_id>")
 def playtovideo(video_id):
