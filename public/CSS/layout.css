@@ -117,11 +117,15 @@ html {
 .categoryline {
   display: flex;
   background-color: #fff;
-  height: 8vh;
-  width: 95vw;
+  height: 64px;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: left;
+  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: max-content;
+  margin-left: 20px;
 }
 .categorybutton {
   height: 32px;
@@ -146,6 +150,7 @@ html {
   margin-right: 5px;
   margin-left: 5px;
   cursor: pointer;
+  width: max-content;
 }
 .searchblock {
   width: 520px;
@@ -868,6 +873,11 @@ html {
     justify-content: center;
     align-items: center;
     width: 90%;
+  }
+  .categoryline {
+    display: flex;
+    justify-content: left;
+    width: max-content;
   }
 }
 
