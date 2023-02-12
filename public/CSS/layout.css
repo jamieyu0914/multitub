@@ -911,11 +911,16 @@ html {
     height: 46px;
   }
   .inputtext {
-    width: 195px;
+    width: 206px;
+    left: 110px;
+    top: 72px;
+    height: 18px;
   }
   .search-button {
     position: absolute;
-    left: 245px;
+    left: 351px;
+    top: 72px;
+    height: 50px;
   }
   .card {
     display: inline-block;
