@@ -136,11 +136,18 @@ function getorigincategorybutton(thisuserid) {
           getcategoryvideo(topic);
         };
         _categorybutton_inform.classList.add("new_categorybutton_inform");
+        _categorybutton_inform.id = i;
         let _categorybutton_inform_text = document.createTextNode(topic);
         _categorybutton_inform.appendChild(_categorybutton_inform_text);
 
+        let _categorybutton_close = document.createElement("div");
+        _categorybutton_close.classList.add("new_categorybutton_close");
+        _categorybutton_close.id = "_close_" + i;
+        _categorybutton_close.name = topic;
+
         //放到位置上
         _button_div.appendChild(_categorybutton_inform);
+        _button_div.appendChild(_categorybutton_close);
         newbutton[0].appendChild(_button_div);
       }
       if (post.length == 0) {
@@ -355,6 +362,36 @@ function getcategoryvideo(keyword) {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
+function deletetopic(deletetopicid, deletetopicname) {
+  let cookiedata = parseJwt(token);
+
+  const data = {
+    id: cookiedata["id"],
+    name: cookiedata["name"],
+    email: cookiedata["email"],
+    topicid: deletetopicid,
+    topicname: deletetopicname,
+  };
+  fetch(`/api/topic`, {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then(function (response) {
+    response.json().then(function (data) {
+      // console.log(data);
+      message = data["message"];
+      if (data["ok"] == true) {
+        // console.log(data["ok"]);
+        document.location.href = "/";
+      } else if (data["error"] == true) {
+        console.log(data["error"]);
+      }
+    });
+  });
+}
+
 function gohome() {
   console.time("2 的 10 次方花費的時間");
   document.location.href = "/";
@@ -370,20 +407,42 @@ window.addEventListener(
       // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
       let thisitemtag = e.target.name;
-      console.log(videoId, thisitemtag);
+      // console.log(videoId, thisitemtag);
       document.location.href = `/play/${thisitemtag}`;
     } else if (e.target.className == "mask_title") {
       // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
       let thisitemtag = e.target.name;
-      console.log(videoId, thisitemtag);
+      // console.log(videoId, thisitemtag);
       document.location.href = `/play/${thisitemtag}`;
     } else if (e.target.className == "video_inform") {
       // console.log("點擊 影片編號" + e.target.id);
       let videoId = e.target.id;
       let thisitemtag = e.target.name;
-      console.log(videoId, thisitemtag);
+      // console.log(videoId, thisitemtag);
       document.location.href = `/play/${thisitemtag}`;
+    } else if (e.target.className == "new_categorybutton_inform") {
+      let _categorybutton_close = document.getElementById(
+        "_close_" + e.target.id
+      );
+      // console.log(_categorybutton_close.style.display);
+      if (
+        _categorybutton_close.style.display == "" ||
+        _categorybutton_close.style.display == "none"
+      ) {
+        _categorybutton_close.style.display = "block";
+      } else {
+        _categorybutton_close.style.display = "none";
+      }
+      // console.log(_categorybutton_close.style.display);
+      // console.log(e.target);
+      // console.log(e.target.id);
+    } else if (e.target.className == "new_categorybutton_close") {
+      let deletetopicid = e.target.id;
+      let deletetopicname = e.target.name;
+      deletetopic(deletetopicid, deletetopicname);
+      // console.log(e.target.id);
+      // console.log(e.target.name);
     }
   },
   false
