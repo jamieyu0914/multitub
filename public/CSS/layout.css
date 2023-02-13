@@ -152,6 +152,22 @@ html {
   cursor: pointer;
   width: max-content;
 }
+.new_categorybutton_close {
+  min-width: 15px;
+  min-height: 15px;
+  background-image: url(/PNG/close.png);
+  background-size: contain;
+  border: 0px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 2px;
+  bottom: 1px;
+  right: 5px;
+  position: relative;
+  display: none;
+}
 .searchblock {
   width: 520px;
   height: 165px;

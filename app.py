@@ -26,7 +26,7 @@ from googleapiclient.errors import HttpError
 load_dotenv()
 
 
-DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY_II")
+DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY")
 youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
@@ -370,7 +370,43 @@ def api_topic():
         return jsonify({
                 "data": results
                 }     ), 200      
-    
+
+@app.route("/api/topic", methods=["DELETE"])
+def deletetopic():
+
+    delete = request.get_json()
+    id = delete["id"]
+    # userid = delete["userid"]
+    # useremail = delete["useremail"]
+    # topicid = delete["topicid"]
+    topicname = delete["topicname"]
+    print(id,topicname)
+
+
+    sql = "DELETE FROM topic_list WHERE userid=%s and topic=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (id, topicname)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        connection_object.commit() 
+    except Error as e:
+            print("Error while connecting to MySQL using Connection pool ", e)
+            return (jsonify({
+                "error": True,
+                "message": "伺服器內部錯誤"
+                })),500
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")        
+        print("主題關鍵字："+topicname+" 刪除")
+        response=make_response({"ok": True}, 200)
+        return response
+
 
 
 @app.route("/api/search", methods=["POST"])
@@ -519,4 +555,4 @@ def api_search():
 
 
 
-app.run(port=3030, debug=True)
+app.run(port=3080, debug=True)
