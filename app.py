@@ -408,7 +408,6 @@ def deletetopic():
         return response
 
 
-
 @app.route("/api/search", methods=["POST"])
 def api_search_post():
 
@@ -503,7 +502,7 @@ def api_search_post():
                     })),200
 
 @app.route("/api/search", methods=["GET"])
-def api_search(): 
+def api_search_get(): 
     
     keyword = request.args.get("keyword","")
     # keyword="蘋果發表會"
@@ -552,7 +551,91 @@ def api_search():
             "data": results
             }     ), 200  
 
+# @app.route("/api/playlist", methods=["GET"])
+# def api_playlist_get(): 
+    playlistId = request.args.get("playlistId","")
+    # keyword="蘋果發表會"
+    print("搜尋播放清單"+playlistId)
+      
+    #search
+    youtube_request = youtube.playlistItems().list(
+        part="snippet, contentDetails", 
+        playlistId=playlistId, 
+        maxResults=1, 
+    )
+    youtube_response = youtube_request.execute()
+    results = []
+    for i in range(0,1):
+        
+        playlist_item = youtube_response["items"][i]
+        title = playlist_item["snippet"]["title"]
+        video_id = playlist_item["contentDetails"]["videoId"]
+        thumbnail_url = playlist_item["snippet"]["thumbnails"]["default"]["url"]
+        channel_title = playlist_item["snippet"]["channelTitle"]
+        channel_id = playlist_item["snippet"]["channelId"]
+        published_at = playlist_item["snippet"]["publishedAt"]
+  
+        result = {
+                "title": title,
+                "videoId": video_id,
+                "thumbnailUrl": thumbnail_url,
+                "channelTitle": channel_title,
+                "channelId": channel_id,
+                "publishedAt": published_at
+                    }
+        results.append(result)
 
+    
+    return jsonify({
+            "data": results
+            }     ), 200  
+
+@app.route("/api/channel", methods=["GET"])
+def api_channel_get(): 
+    channelId = request.args.get("channel","")
+    # keyword="蘋果發表會"
+    print("搜尋播放清單"+channelId)
+      
+    #search
+    youtube_request = youtube.channels().list(
+        part="snippet,statistics",
+        id=channelId,
+        maxResults=1,
+        )
+
+    youtube_response = youtube_request.execute()
+    results = []
+    for i in range(0,1):
+        
+        channel_item = youtube_response["items"][i]
+        channel_title = channel_item["snippet"]["title"]
+        description = channel_item["snippet"]["description"]
+        customUrl = channel_item["snippet"]["customUrl"]
+        published_at = channel_item["snippet"]["publishedAt"]
+        thumbnail_url = channel_item["snippet"]["thumbnails"]["high"]["url"]
+        subscribercount = channel_item["statistics"]["subscriberCount"]
+        viewcount =  channel_item["statistics"]["viewCount"]
+        videocount = channel_item["statistics"]["videoCount"]
+        
+  
+        result = {
+                
+                 "channelTitle": channel_title,
+                 "description": description,
+                "thumbnailUrl": thumbnail_url,
+                "customUrl": customUrl,
+                "publishedAt": published_at,
+                "subscriberCount": subscribercount,
+                "viewCount": viewcount,
+                "videoCount": videocount
+                
+                    }
+        results.append(result)
+
+    
+    return jsonify({
+            "data": results
+            }     ), 200  
 
 
 app.run(port=3080, debug=True)

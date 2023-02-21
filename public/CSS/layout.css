@@ -146,6 +146,12 @@ html {
   align-items: center;
   cursor: pointer;
 }
+.categorybutton_inform {
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  width: max-content;
+}
 .new_categorybutton_inform {
   margin-right: 5px;
   margin-left: 5px;
@@ -181,6 +187,17 @@ html {
   border: 0px solid #f44336;
   display: none;
 }
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: " ";
+  background: rgba(0, 0, 0, 0);
+  display: none;
+  z-index: 999;
+}
 .searchblockhead {
   width: 520px;
   height: 10px;
@@ -205,6 +222,81 @@ html {
   position: relative;
   top: 10px;
   left: 90px;
+}
+.ytchannelmenublock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ytchannel_cover_div {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.ytchannel_titlewithcustomUrl_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ytchannel_title_div {
+  font-size: 24px;
+  color: #0f0f0f;
+}
+.ytchannel_customUrl_div {
+  font-size: 16px;
+  color: #606060;
+  margin-left: 10px;
+}
+.ytchannel_statistics_div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+.ytchannel_subscriberCount_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ytchannel_subscriberCount_div_img {
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+.ytchannel_viewCount_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ytchannel_viewCount_div_img {
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+.ytchannel_videoCount_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ytchannel_videoCount_div_img {
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+.ytchannel_description_div {
+  font-size: 12px;
+  margin: 10px;
+  text-align: justify;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 /* 最後結尾 */
 .signinblock {

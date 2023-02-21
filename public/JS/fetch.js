@@ -181,7 +181,7 @@ function getcategorybutton() {
   _categorybutton_inform.onclick = function () {
     addtopic();
   };
-  _categorybutton_inform.classList.add("new_categorybutton_inform");
+  _categorybutton_inform.classList.add("categorybutton_inform");
   let _categorybutton_inform_text = document.createTextNode("＋新增主題");
   _categorybutton_inform.appendChild(_categorybutton_inform_text);
 
@@ -293,7 +293,7 @@ function getcategoryvideo(keyword) {
         if (itemId["kind"] == "youtube#channel") {
           type = itemId["kind"].split("#")[1];
           tag = itemId["channelId"];
-        } else if (itemId["kind"] == "youtube#youtube#playlist") {
+        } else if (itemId["kind"] == "youtube#playlist") {
           type = itemId["kind"].split("#")[1];
           tag = itemId["playlistId"];
         } else if (itemId["kind"] == "youtube#video") {
