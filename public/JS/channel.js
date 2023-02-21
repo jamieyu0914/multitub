@@ -1,4 +1,7 @@
-var isLoading = false;
+var isLoading = true;
+
+let loadingblocker = document.querySelector(".loadding-blocker");
+loadingblocker.style.display = "flex";
 
 var nextPage;
 
@@ -18,6 +21,7 @@ if ((cookie != "") & (cookie != "token=")) {
 }
 
 if (token != "") {
+  isLoading = true;
   console.log("HELLO HERE");
 
   function parseJwt(token) {
@@ -61,9 +65,11 @@ if (token != "") {
     };
     xhr.send(null);
   }
+  isLoading = false;
 } else {
   console.log("未登入");
   document.location.href = "/login";
+  isLoading = false;
 }
 
 function gohome() {
@@ -110,7 +116,7 @@ function getchannel(thisitemId) {
       let description = post["description"];
       let thumbnailUrl = post["thumbnailUrl"];
       let customUrl = post["customUrl"];
-      let publishedAt = post["publishedAt"];
+      let publishedAt = post["publishedAt"].split("T")[0];
       let subscriberCount = parseInt(post["subscriberCount"]);
       // console.log(typeof subscriberCount);
       if (subscriberCount >= 10000) {
@@ -215,7 +221,29 @@ function getchannel(thisitemId) {
 
       let ytchannel_publishedAt_div = document.createElement("div");
       ytchannel_publishedAt_div.classList.add("ytchannel_publishedAt_div");
-      let ytchannel_publishedAt_div_text = document.createTextNode(publishedAt);
+      let ytchannel_publishedAt_div_img = document.createElement("img");
+      ytchannel_publishedAt_div_img.classList.add(
+        "ytchannel_publishedAt_div_img"
+      );
+      const ytchannel_publishedAt_div_img_attr =
+        document.createAttribute("src");
+      ytchannel_publishedAt_div_img_attr.value = "/PNG/report.png";
+      ytchannel_publishedAt_div_img.setAttributeNode(
+        ytchannel_publishedAt_div_img_attr
+      );
+      let publishedAt_year = publishedAt.split("-")[0];
+      let publishedAt_month = publishedAt.split("-")[1];
+      let publishedAt_day = publishedAt.split("-")[2];
+      let ytchannel_publishedAt_div_text = document.createTextNode(
+        publishedAt_year +
+          "年" +
+          publishedAt_month +
+          "月" +
+          publishedAt_day +
+          "日" +
+          " 建立頻道"
+      );
+      ytchannel_publishedAt_div.appendChild(ytchannel_publishedAt_div_img);
       ytchannel_publishedAt_div.appendChild(ytchannel_publishedAt_div_text);
 
       ytchannelmenu_block_left_div.appendChild(ytchannel_cover_div);
@@ -240,6 +268,8 @@ function getchannel(thisitemId) {
       // getchannelvideo(videoId);
     });
   isLoading = false;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "none";
   console.timeEnd("2 的 10 次方花費的時間");
 }
 

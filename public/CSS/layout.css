@@ -7,6 +7,7 @@ html {
   display: flex;
   align-content: center;
   justify-content: center;
+  min-height: 72px;
 }
 .mymenu {
   display: flex;
@@ -95,6 +96,7 @@ html {
   background-size: cover;
   top: 54px;
   background-color: #c8acac0f;
+  /* min-height: 72px; */
 }
 .view-list {
   display: flex;
@@ -224,9 +226,21 @@ html {
   left: 90px;
 }
 .ytchannelmenublock {
+  min-width: 1100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  padding-left: 0px;
+}
+.ytchannelmenublock-left {
+  min-width: 365px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.ytchannelmenublock-right {
+  min-width: 730px;
 }
 .ytchannel_cover_div {
   height: 200px;
@@ -240,6 +254,7 @@ html {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  margin: 10px;
 }
 .ytchannel_title_div {
   font-size: 24px;
@@ -257,6 +272,7 @@ html {
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
+  margin: 10px;
 }
 .ytchannel_subscriberCount_div {
   display: flex;
@@ -292,11 +308,29 @@ html {
   margin-right: 5px;
 }
 .ytchannel_description_div {
-  font-size: 12px;
-  margin: 10px;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   text-align: justify;
   word-wrap: break-word;
   white-space: pre-wrap;
+  display: flex;
+  justify-content: flex-start;
+}
+.ytchannel_publishedAt_div {
+  margin: 10px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.ytchannel_publishedAt_div_img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }
 /* 最後結尾 */
 .signinblock {
@@ -757,7 +791,7 @@ html {
   background: #fff;
   display: block;
   height: 72px;
-  z-index: 998;
+  z-index: 999;
   background-image: url(/PNG/loaddingblocks.gif);
   background-repeat: no-repeat;
   background-position-x: center;
