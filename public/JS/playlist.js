@@ -6,9 +6,11 @@ var keyword = "蘋果發表會";
 
 var newkeyword = "undefined";
 
+// var videoId;
+
 var cookie = document.cookie;
 
-var thisitemId = window.location.href.split("/play/video/")[1];
+var thisitemId = window.location.href.split("/play/playlist/")[1];
 console.log(thisitemId);
 //判斷是否為登入狀態
 if ((cookie != "") & (cookie != "token=")) {
@@ -66,25 +68,44 @@ if (token != "") {
   document.location.href = "/login";
 }
 
-alert("播放清單頁面尚在施工中...");
-
 function gohome() {
   document.location.href = "/";
 }
 
-// Load the IFrame Player API code asynchronously
-var tag = document.createElement("script");
-tag.src = "https://www.youtube.com/player_api";
-var firstScriptTag = document.getElementsByTagName("script")[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var tag = document.querySelector(".ytlistplayer");
+tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 
-// Replace the 'ytplayer' element with an <iframe> and
-// YouTube player after the API code downloads.
-var player;
-function onYouTubePlayerAPIReady() {
-  player = new YT.Player("ytplayer", {
-    height: "360",
-    width: "640",
-    videoId: thisitemId,
-  });
-}
+// function getplaylist(thisitemId) {
+//   console.time("2 的 10 次方花費的時間");
+//   //讀取資料
+//   isLoading = true;
+//   // // console.log(isLoading);
+//   // let rest = document.querySelector(".list-block");
+//   // rest.innerHTML = "";
+//   // // console.log(keyword);
+//   // // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
+//   fetch(`/api/playlist?playlistId=${thisitemId}`)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data["data"]);
+//       console.log(data["data"]["videoId"]);
+//       let videoId = data["data"]["videoId"];
+//       getplaylistvideo(videoId);
+
+//       return videoId;
+//     });
+//   isLoading = false;
+//   console.timeEnd("2 的 10 次方花費的時間");
+// }
+
+// getplaylistvideo(thisitemId);
+
+// function getplaylistvideo(videoId) {
+//   var tag = document.querySelector(".ytlistplayer");
+//   tag.src = `https://www.youtube.com/embed/videoseries?list=${videoId}`;
+// }
+
+// var tag = document.querySelector(".ytlistplayer");
+// tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
