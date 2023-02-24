@@ -109,3 +109,36 @@ tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 
 // var tag = document.querySelector(".ytlistplayer");
 // tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
+
+function logout() {
+  console.time("2 的 10 次方花費的時間");
+  let cookiedata = parseJwt(token);
+
+  const data = {
+    id: cookiedata["id"],
+    userid: cookiedata["userid"],
+    useremail: cookiedata["useremail"],
+  };
+  console.log(cookiedata["id"]);
+  console.log(cookiedata["userid"]);
+  console.log(cookiedata["useremail"]);
+
+  fetch(`/api/user/auth`, {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then(function (response) {
+    response.json().then(function (data) {
+      // console.log(data);
+      message = data["message"];
+      if (data["ok"] == true) {
+        document.location.href = "/";
+      } else if (data["error"] == true) {
+        console.log("尚未登出");
+      }
+    });
+  });
+  console.timeEnd("2 的 10 次方花費的時間");
+}
