@@ -35,7 +35,7 @@
       <div class="searchblock">
         <div class="searchblockhead"></div>
         <div class="searchblocktitle">
-          <text class="searchblocktitletext">新主題關鍵字</text>
+          <text class="searchblocktitletext">新影片清單類別</text>
         </div>
         <input
           type="text"
@@ -44,9 +44,28 @@
           id="keyword"
           onfocus="categoryview()"
         />
-        <text class="inputtext" onclick="categoryview()">輸入主題名稱查詢</text>
-        <button class="search-button" onclick="getsearchdata()">
-          <text class="search-button-text">搜尋</text>
+        <text class="inputtext" onclick="categoryview()">輸入新的清單名稱</text>
+        <button class="search-button" onclick="getvideolistdata()">
+          <text class="search-button-text">增加</text>
+        </button>
+      </div>
+      <div class="searchblock" id="searchvideoblock">
+        <div class="searchblockhead"></div>
+        <div class="searchblocktitle">
+          <text class="searchblocktitletext">新增影片</text>
+        </div>
+        <input
+          type="text"
+          name="videokeyword"
+          class="keyword"
+          id="videokeyword"
+          onfocus="newvideoview()"
+        />
+        <text class="inputtext" id="inputvideotext" onclick="newvideoview()"
+          >輸入影片網址或影片ID</text
+        >
+        <button class="search-button" onclick="addvideodata(categorykeyword)">
+          <text class="search-button-text">加入</text>
         </button>
       </div>
       <div class="headline" id="headline">
@@ -215,5 +234,5 @@
   <footer class="footer">
     <footer class="text">COPYRIGHT © 2023 MultiTube</footer>
   </footer>
-  <script src="/JS/fetch.js" charset="utf-8"></script>
+  <script src="/JS/videolist.js" charset="utf-8"></script>
 </html>

@@ -14,7 +14,7 @@ html {
   justify-content: center;
   width: 100vw;
   height: 54px;
-  z-index: 998;
+  z-index: 1001;
   background: white;
   position: fixed;
   border: 1px solid #e8e8e8;
@@ -68,8 +68,8 @@ html {
   background-color: #fff;
 }
 .usericon {
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 28px;
+  min-height: 28px;
   background-image: url(/PNG/woman.png);
   background-size: contain;
   border: 0px;
@@ -103,18 +103,25 @@ html {
 }
 .view-left {
   background-color: #fff;
-  width: 5vw;
+  min-width: 5vw;
   border: 1px solid #e8e8e8;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-left: 10px;
 }
 .view-right {
   background-color: #fff;
   width: 95vw;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   background-repeat: no-repeat;
   background-position-y: center;
   background-image: url(/PNG/film.png);
+  flex-direction: column;
+  align-items: center;
 }
 .categoryline {
   display: flex;
@@ -127,7 +134,7 @@ html {
   overflow-x: scroll;
   overflow-y: hidden;
   width: max-content;
-  margin-left: 20px;
+  max-width: 95vw;
 }
 .categorybutton {
   height: 32px;
@@ -331,6 +338,66 @@ html {
   width: 16px;
   height: 16px;
   margin-right: 5px;
+}
+.mytoopiclist {
+  min-width: 5vw;
+  min-height: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.mytoopiclisticon {
+  width: 35px;
+  height: 35px;
+  background-size: cover;
+  background-image: url(/PNG/topicmark.png);
+  margin-bottom: 5px;
+}
+.mytoopiclisticontext {
+  font-size: 12px;
+}
+.myvideolist {
+  min-width: 5vw;
+  min-height: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.myvideolisticon {
+  width: 35px;
+  height: 35px;
+  background-size: cover;
+  background-image: url(/PNG/video.png);
+  margin-bottom: 5px;
+}
+.myvideolisticontext {
+  font-size: 12px;
+}
+.mysubscriberlist {
+  min-width: 5vw;
+  min-height: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.mysubscriberlisticon {
+  width: 35px;
+  height: 35px;
+  background-size: cover;
+  background-image: url(/PNG/subscriber.png);
+  margin-bottom: 5px;
+}
+.mysubscriberlisticontext {
+  font-size: 12px;
 }
 /* 最後結尾 */
 .signinblock {
@@ -790,11 +857,12 @@ html {
   content: " ";
   background: #fff;
   display: block;
-  height: 72px;
+  height: 17.5vw;
   z-index: 999;
   background-image: url(/PNG/loaddingblocks.gif);
   background-repeat: no-repeat;
   background-position-x: center;
+  background-position-y: center;
   background-size: auto;
 }
 .search-button {

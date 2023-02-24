@@ -10,7 +10,7 @@ html {
   justify-content: center;
   width: 100vw;
   height: 54px;
-  z-index: 998;
+  z-index: 1001;
   background: white;
   position: fixed;
 }
