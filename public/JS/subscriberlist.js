@@ -2,7 +2,7 @@ var isLoading = false;
 
 var nextPage;
 
-var keyword = "音樂";
+var keyword = "@Joeman";
 
 var newkeyword = "undefined";
 
@@ -55,7 +55,7 @@ if (token != "") {
           thisuserid = login_response["data"]["userid"];
           console.log("Hi~~ " + thisuserid);
           console.log("已登入");
-          getorigincategorybutton(thisuserid);
+          getoriginsubscribervideo(thisuserid);
         }
       }
     };
@@ -100,7 +100,7 @@ function logout() {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
-function getorigincategorybutton(thisuserid) {
+function getoriginsubscribervideo(thisuserid) {
   console.time("2 的 10 次方花費的時間");
   //清空資料
   let rest = document.querySelector(".categoryline");
@@ -153,7 +153,7 @@ function getorigincategorybutton(thisuserid) {
         newbutton[0].appendChild(_button_div);
       }
       if (post.length == 0) {
-        var lastcategory = "音樂"; // 預設清單分類為「音樂」
+        var lastcategory = "@Joeman"; // 預設清單分類為「音樂」
         getcategorybutton();
         postcategoryvideo(thisuserid, lastcategory);
         document.location.href = "/videolist";
@@ -162,7 +162,7 @@ function getorigincategorybutton(thisuserid) {
       } else {
         lastcategory = data["data"][length - 1]["category"];
         getcategorybutton();
-        getorigincategoryvideo(thisuserid, lastcategory);
+        postcategoryvideo(thisuserid, lastcategory);
       }
     });
   isLoading = false;
@@ -186,7 +186,7 @@ function getcategorybutton() {
     addcategory();
   };
   _categorybutton_inform.classList.add("categorybutton_inform");
-  let _categorybutton_inform_text = document.createTextNode("＋新增清單");
+  let _categorybutton_inform_text = document.createTextNode("＋新增訂閱者");
   _categorybutton_inform.appendChild(_categorybutton_inform_text);
 
   //放到位置上
@@ -246,6 +246,16 @@ function newvideoview() {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
+function newsubscriberview() {
+  console.time("2 的 10 次方花費的時間");
+  const thetext = document.querySelector("#inputsubscribertext");
+  thetext.style.display = "none";
+
+  const blocker = document.querySelector(".blocker");
+  blocker.style.display = "flex";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
+
 function getvideolistdata() {
   console.time("2 的 10 次方花費的時間");
   var newkeyword = document.getElementById("keyword").value;
@@ -273,7 +283,7 @@ function postcategoryvideo(thisuserid, lastcategory) {
     userid: thisuserid,
     keyword: keyword,
   };
-  fetch(`/api/categoryvideo`, {
+  fetch(`/api/category`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -305,7 +315,7 @@ function getorigincategoryvideo(thisuserid, keyword) {
   // console.log(thisuserid);
   // console.log(keyword);
   // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
-  fetch(`/api/categoryvideo?userid=${thisuserid}&keyword=${keyword}`)
+  fetch(`/api/category?userid=${thisuserid}&keyword=${keyword}`)
     .then(function (response) {
       return response.json();
     })
@@ -491,7 +501,7 @@ function deletecategory(deletecategoryid, deletecategoryname) {
       message = data["message"];
       if (data["ok"] == true) {
         // console.log(data["ok"]);
-        govideolist();
+        document.location.href = "/videolist";
       } else if (data["error"] == true) {
         console.log(data["error"]);
       }
@@ -505,17 +515,19 @@ function addvideodata(categorykeyword) {
 
   console.log(categorykeyword);
   var newkeyword = document.getElementById("videokeyword").value;
-  let str1 = newkeyword.includes("https://www.youtube.com/watch?v=");
-  let str2 = newkeyword.includes("https://youtu.be/");
-  let str3 = newkeyword.includes("/play/video/");
+  // console.log(newkeyword);
+  posttoaddcategoryvideo(thisuserid, newkeyword, categorykeyword);
+  hideview();
+  // document.location.href = "/videolist";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
 
-  if (str1 == true) {
-    newkeyword = newkeyword.split("https://www.youtube.com/watch?v=")[1];
-  } else if (str2 == true) {
-    newkeyword = newkeyword.split("https://youtu.be/")[1];
-  } else if (str3 == true) {
-    newkeyword = newkeyword.split("/play/video/")[1];
-  }
+function addsubscriberdata(categorykeyword) {
+  console.time("2 的 10 次方花費的時間" + "0 0");
+  // console.log(categorykeyword);
+
+  console.log(categorykeyword);
+  var newkeyword = document.getElementById("videokeyword").value;
   // console.log(newkeyword);
   posttoaddcategoryvideo(thisuserid, newkeyword, categorykeyword);
   hideview();
@@ -633,10 +645,7 @@ window.addEventListener(
       // console.log(e.target.id);
     } else if (e.target.className == "new_categorybutton_close") {
       let deletecategoryid = e.target.id;
-      deletecategoryid = deletecategoryid.split("_close_")[1];
-      let deletecategoryname = categorykeyword;
-      console.log("刪除" + deletecategoryid);
-      console.log("刪除" + deletecategoryname);
+      let deletecategoryname = e.target.name;
       deletecategory(deletecategoryid, deletecategoryname);
       // console.log(e.target.id);
       // console.log(e.target.name);

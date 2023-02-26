@@ -69,6 +69,10 @@ def play():
 def videolist():
 	return render_template("videolist.html") 
 
+@app.route("/subscriberlist")
+def subscriberlist():
+	return render_template("subscriberlist.html") 
+
 @app.route("/play/channel/<channel_id>")
 def playtochannel(channel_id):
 	return render_template("channel.html")  
@@ -484,9 +488,33 @@ def deletevideolist():
     categoryname = delete["categoryname"]
     print(id,categoryname)
 
-
-    sql = "DELETE FROM topic_list WHERE userid=%s and category=%s;" #SQL指令 是否有對應的帳號、密碼
+    sql = "SELECT * FROM category_list WHERE userid=%s and category=%s;" #SQL指令 檢查帳號 (userid)
     val = (id, categoryname)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hi")
+        print(x[0])
+        categorynumber = x[0]           
+    except Error as e:  
+    # except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally: 
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")
+
+
+    sql = "DELETE FROM video_list WHERE categoryid=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (categorynumber,)
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
@@ -505,7 +533,128 @@ def deletevideolist():
         cursor.close()
         connection_object.close()
         print("MySQL connection is closed")        
-        print("主題關鍵字："+categoryname+" 刪除")
+        print("影片清單內容："+categoryname+" 刪除")
+
+
+    sql = "DELETE FROM category_list WHERE id=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (categorynumber,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        connection_object.commit() 
+    except Error as e:
+            print("Error while connecting to MySQL using Connection pool ", e)
+            return (jsonify({
+                "error": True,
+                "message": "伺服器內部錯誤"
+                })),500
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")        
+        print("影片清單關鍵字："+categoryname+" 刪除")
+        response=make_response({"ok": True}, 200)
+        return response    
+
+@app.route("/api/subscriberlist", methods=["GET"])
+def api_subscriberlist(): 
+    userid = request.args.get("userid","")
+ 
+    print("使用者編號"+userid)
+
+    print("HELLOOOOOOOOO")
+
+    sql = "SELECT * FROM member_list WHERE userid=%s" #SQL指令 檢查帳號 (userid)
+    val = (userid,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hi")
+        print(x[0])
+        useridnumber = x[0]           
+    except Error as e:  
+    # except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally: 
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")
+
+    results = []
+
+    sql = "SELECT subscriber FROM subscriber_list WHERE userid=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    val = (useridnumber,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+            print("Hi Hello Hi")
+            result = {
+                "subscriber" : x[0],
+                    }
+            results.append(result)
+        print(results+"yoyoyo")        
+    except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        return jsonify({
+                "data": results
+                }     ), 200      
+
+@app.route("/api/subscriberlist", methods=["DELETE"])
+def deletesubscriberlist():
+
+    delete = request.get_json()
+    id = delete["id"]
+    # userid = delete["userid"]
+    # useremail = delete["useremail"]
+    # topicid = delete["topicid"]
+    subscribername = delete["subscribername"]
+    print(id,subscribername)
+
+
+    sql = "DELETE FROM topic_list WHERE userid=%s and category=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (id, subscribername)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        connection_object.commit() 
+    except Error as e:
+            print("Error while connecting to MySQL using Connection pool ", e)
+            return (jsonify({
+                "error": True,
+                "message": "伺服器內部錯誤"
+                })),500
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")        
+        print("影片清單關鍵字："+subscribername+" 刪除")
         response=make_response({"ok": True}, 200)
         return response
 
@@ -739,7 +888,7 @@ def api_channel_get():
             "data": results
             }     ), 200  
 
-@app.route("/api/category", methods=["POST"])
+@app.route("/api/categoryvideo", methods=["POST"])
 def api_category_post():
 
     #新增一個主題分類
@@ -747,7 +896,7 @@ def api_category_post():
     userid = post["userid"]
     print(userid)
     keyword = post["keyword"]
-    print(keyword)
+    print("增加類別清單"+keyword)
 
     if(keyword ==""): #資料驗證失敗
         return (jsonify({
@@ -832,14 +981,14 @@ def api_category_post():
                     "ok": True
                     })),200
 
-@app.route("/api/category", methods=["GET"])
+@app.route("/api/categoryvideo", methods=["GET"])
 def api_category_get(): 
     
     userid = request.args.get("userid","")
     keyword = request.args.get("keyword","")
     # keyword="蘋果發表會"
     print(userid)
-    print("增加清單類別"+keyword)
+    print("查詢清單類別"+keyword)
 
     sql = "SELECT * FROM member_list WHERE userid=%s" #SQL指令 檢查帳號 (userid)
     val = (userid,)
