@@ -32,24 +32,7 @@
         </div>
       </div>
       <div class="blocker" onclick="hideview()"></div>
-      <div class="searchblock">
-        <div class="searchblockhead"></div>
-        <div class="searchblocktitle">
-          <text class="searchblocktitletext">新影片清單類別</text>
-        </div>
-        <input
-          type="text"
-          name="keyword"
-          class="keyword"
-          id="keyword"
-          onfocus="categoryview()"
-        />
-        <text class="inputtext" onclick="categoryview()">輸入新的清單名稱</text>
-        <button class="search-button" onclick="getvideolistdata()">
-          <text class="search-button-text">增加</text>
-        </button>
-      </div>
-      <div class="searchblock" id="searchvideoblock">
+      <!-- <div class="searchblock" id="searchvideoblock">
         <div class="searchblockhead"></div>
         <div class="searchblocktitle">
           <text class="searchblocktitletext">新增影片</text>
@@ -66,6 +49,31 @@
         >
         <button class="search-button" onclick="addvideodata(categorykeyword)">
           <text class="search-button-text">加入</text>
+        </button>
+      </div> -->
+      <div class="searchblock" id="searchvideoblock">
+        <div class="searchblockhead"></div>
+        <div class="searchblocktitle">
+          <text class="searchblocktitletext">新訂閱者</text>
+        </div>
+        <input
+          type="text"
+          name="subscriberkeyword"
+          class="keyword"
+          id="subscriberkeyword"
+          onfocus="newsubscriberview()"
+        />
+        <text
+          class="inputtext"
+          id="inputsubscribertext"
+          onclick="newsubscriberview()"
+          >輸入新的訂閱者@custumID或頻道網址</text
+        >
+        <button
+          class="search-button"
+          onclick="addsubscriberdata(subscriberkeyword)"
+        >
+          <text class="search-button-text">新增</text>
         </button>
       </div>
       <div class="headline" id="headline">
@@ -237,5 +245,5 @@
   <footer class="footer">
     <footer class="text">COPYRIGHT © 2023 MultiTube</footer>
   </footer>
-  <script src="/JS/videolist.js" charset="utf-8"></script>
+  <script src="/JS/subscriberlist.js" charset="utf-8"></script>
 </html>
