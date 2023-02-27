@@ -461,7 +461,7 @@ def api_videolist():
         x=""
         for x in myresult:
             print(x)
-            print("Hi Hello Hi")
+            print("Hi Hello Hi 1")
             result = {
                 "category" : x[0],
                     }
@@ -594,7 +594,7 @@ def api_subscriberlist():
 
     results = []
 
-    sql = "SELECT subscriber FROM subscriber_list WHERE userid=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    sql = "SELECT subscriber, subscribertitle FROM subscriber_list WHERE userid=%s" #SQL指令 檢查是否有重複的帳號 (email)
     val = (useridnumber,)
     try:
         # Get connection object from a pool
@@ -606,9 +606,10 @@ def api_subscriberlist():
         x=""
         for x in myresult:
             print(x)
-            print("Hi Hello Hi")
+            print("Hi Hello Hi 2")
             result = {
                 "subscriber" : x[0],
+                "subscribertitle" : x[1],
                     }
             results.append(result)
         print(results+"yoyoyo")        
@@ -634,7 +635,7 @@ def deletesubscriberlist():
     print(id,subscribername)
 
 
-    sql = "DELETE FROM topic_list WHERE userid=%s and category=%s;" #SQL指令 是否有對應的帳號、密碼
+    sql = "DELETE FROM subscriber_list WHERE userid=%s and subscriber=%s;" #SQL指令 是否有對應的帳號、密碼
     val = (id, subscribername)
     try:
         # Get connection object from a pool
@@ -1053,7 +1054,7 @@ def api_category_get():
         x=""
         for x in myresult:
             print(x)
-            print("Hi Hello Hi")
+            print("Hi Hello Hi 3")
             result = {
                 "videoId" : x[2],
                 "title" : x[3],
@@ -1186,6 +1187,278 @@ def api_addvideo_post():
         return (jsonify({
                 "ok": True
                 })),200
+
+@app.route("/api/subscribervideo", methods=["POST"])
+def api_subscriber_post():
+
+    #新增一個主題分類
+    post = request.get_json()
+    userid = post["userid"]
+    print(userid)
+    keyword = post["keyword"]
+    print("新增訂閱者"+keyword)
+
+    if(keyword ==""): #資料驗證失敗
+        return (jsonify({
+                "error": True,
+                "message": "資料驗證失敗，請輸入新的主題關鍵字"
+                })),400
+
+    sql = "SELECT * FROM member_list WHERE userid=%s" #SQL指令 檢查帳號 (userid)
+    val = (userid,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hi")
+        print(x[0])
+        useridnumber = x[0]           
+    except Error as e:  
+    # except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally: 
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")
+
+    sql = "SELECT * FROM subscriber_list WHERE userid=%s and subscriber=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    val = (useridnumber, keyword)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+    except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")       
+    if (x != ""):#資料驗證成功
+        return (jsonify({
+                "ok": True,
+                "message": "資料驗證成功，但為已存在的主題關鍵字"
+                })),200
+    else:#資料驗證成功
+
+        keyword = keyword.split("@")[1]
+        print(keyword)
+
+        youtube_request = youtube.search().list(
+        part="snippet",
+        maxResults=1,
+        q=keyword,
+        type="channel"
+        )
+
+        youtube_response = youtube_request.execute()
+        # print(response,"\n")
+        # nums = (len(youtube_response)-1) 
+        # print(nums)
+        results = []
+        # nextPageToken = youtube_response["nextPageToken"] #CDIQAA
+        # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
+        # print(youtube_response["items"])
+        # print(results['id'].get('videoId'))
+        # for i in range(0,1):
+            # print("------")
+        title=youtube_response["items"][0]["snippet"]["title"]
+        # customUrl=youtube_response["items"][0]["snippet"]["customUrl"]
+        channelId=youtube_response["items"][0]["id"]["channelId"]
+
+         #search
+        youtube_request = youtube.channels().list(
+            part="snippet",
+            id=channelId,
+            maxResults=1,
+            )
+
+        print(channelId)
+        youtube_response = youtube_request.execute()
+        results = []
+
+        customUrl = youtube_response["items"][0]["snippet"]["customUrl"]
+
+            
+
+        sql = "INSERT INTO subscriber_list (userid, subscriber, subscribertitle, channelid) VALUES (%s, %s, %s, %s)" #SQL指令 新增資料
+        val = (useridnumber, customUrl, title, channelId)
+        try:
+            # Get connection object from a pool
+            connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+            cursor = connection_object.cursor()
+            print("MySQL connection is opened")
+            cursor.execute(sql, val)
+            connection_object.commit()
+        except Error as e:
+            print("Error while connecting to MySQL using Connection pool ", e)
+            return (jsonify({
+                "error": True,
+                "message": "伺服器內部錯誤"
+                })),500
+        finally:
+            # closing database connection.    
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")            
+            print("新訂閱者關鍵字")
+            return (jsonify({
+                    "ok": True
+                    })),200
+
+@app.route("/api/subscribervideo", methods=["GET"])
+def api_subscriber_get(): 
+    
+    userid = request.args.get("userid","")
+    keyword = request.args.get("keyword","")
+    # keyword="蘋果發表會"
+    print("搜尋訂閱者影片"+keyword)
+
+    sql = "SELECT * FROM member_list WHERE userid=%s" #SQL指令 檢查帳號 (userid)
+    val = (userid,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hi")
+        print(x[0])
+        useridnumber = x[0]           
+    except Error as e:  
+    # except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally: 
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")
+
+    sql = "SELECT subscribertitle, channelid FROM subscriber_list WHERE userid=%s and subscriber=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    val = (useridnumber, keyword)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hello")
+        print(x[0]+","+x[1])
+        subscribertitle= x[0]
+        channelId= x[1]       
+    except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed")  
+      
+    #search
+    youtube_request = youtube.search().list(
+        part="snippet",
+        maxResults=21,
+        q=subscribertitle,
+        channelId=channelId,
+    )
+    youtube_response = youtube_request.execute()
+    # print(response,"\n")
+    # nums = (len(youtube_response)-1) 
+    # print(nums)
+    results = []
+    # nextPageToken = youtube_response["nextPageToken"] #CDIQAA
+    # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
+    # print(youtube_response["items"])
+    # print(results['id'].get('videoId'))
+    for i in range(0,20):
+        # print("------")
+        title=youtube_response["items"][i]["snippet"]["title"]
+        coverurl=youtube_response["items"][i]["snippet"]["thumbnails"]["high"]["url"]
+        channelTitle=youtube_response["items"][i]["snippet"]["channelTitle"]
+        itemId=youtube_response["items"][i]["id"]
+            
+        
+        # print(title)
+        # print(coverurl)
+        # print(channelTitle)
+        print(itemId)
+        # print("------")
+        result = {
+                "thisId" : i,
+                "title":title,
+                "coverurl":coverurl,
+                "channelTitle": channelTitle,
+                "itemId":itemId
+                    }
+        results.append(result)
+
+    # print(nextPageToken)
+    # print(prevPageToken)
+    return jsonify({
+            "data": results
+            }     ), 200  
+
+# @app.route("/api/playlist", methods=["GET"])
+# def api_playlist_get(): 
+    # playlistId = request.args.get("playlistId","")
+    # # keyword="蘋果發表會"
+    # print("搜尋播放清單"+playlistId)
+      
+    # #search
+    # youtube_request = youtube.playlistItems().list(
+    #     part="snippet, contentDetails", 
+    #     playlistId=playlistId, 
+    #     maxResults=1, 
+    # )
+    # youtube_response = youtube_request.execute()
+    # results = []
+    # for i in range(0,1):
+        
+    #     playlist_item = youtube_response["items"][i]
+    #     title = playlist_item["snippet"]["title"]
+    #     video_id = playlist_item["contentDetails"]["videoId"]
+    #     thumbnail_url = playlist_item["snippet"]["thumbnails"]["default"]["url"]
+    #     channel_title = playlist_item["snippet"]["channelTitle"]
+    #     channel_id = playlist_item["snippet"]["channelId"]
+    #     published_at = playlist_item["snippet"]["publishedAt"]
+  
+    #     result = {
+    #             "title": title,
+    #             "videoId": video_id,
+    #             "thumbnailUrl": thumbnail_url,
+    #             "channelTitle": channel_title,
+    #             "channelId": channel_id,
+    #             "publishedAt": published_at
+    #                 }
+    #     results.append(result)
+
+    
+    # return jsonify({
+    #         "data": results
+    #         }     ), 200  
+
+
 #     #search
 #     youtube_request = youtube.search().list(
 #         part="snippet",
