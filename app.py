@@ -21,6 +21,9 @@ import pprint
 import argparse
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from flask import Flask, request, send_from_directory, jsonify
+import boto3
+from datetime import datetime
 
 
 load_dotenv()
@@ -51,6 +54,22 @@ app.secret_key="any string but secret" #設定 Session 的密鑰
 app.config["JSON_AS_ASCII"]=False
 app.config["JSON_SORT_KEYS"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+app.config["UPLOAD_FOLDER"] = "uploads"
+
+
+# 設定Amazon S3連線資訊
+BUCKET_NAME = os.getenv("BUCKET_NAME")
+BUCKET_REGION = os.getenv("BUCKET_REGION")
+ACCESS_KEY = os.getenv("ACCESS_KEY")
+SECRET_ACCESS_KEY = os.getenv("SECRET_ACCESS_KEY")
+
+# 建立Amazon S3客戶端
+s3 = boto3.client(
+    "s3",
+    region_name=BUCKET_REGION,
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_ACCESS_KEY
+)
 
 # Pages
 @app.route("/")
@@ -72,6 +91,10 @@ def videolist():
 @app.route("/subscriberlist")
 def subscriberlist():
 	return render_template("subscriberlist.html") 
+
+@app.route("/member")
+def member():
+	return render_template("member.html")     
 
 @app.route("/play/channel/<channel_id>")
 def playtochannel(channel_id):
@@ -1418,6 +1441,124 @@ def api_subscriber_get():
     return jsonify({
             "data": results
             }     ), 200  
+
+
+# # 上傳檔案至Amazon S3
+# def upload_to_s3(file, filename):
+#     s3.upload_fileobj(
+#         file,
+#         BUCKET_NAME,
+#         filename,
+#         ExtraArgs={
+#             "ContentType": file.content_type
+#         }
+#     )
+
+# # 儲存會員紀錄至MySQL
+# def save_chat_record(content, image_url):
+#     with connection_pool.connection() as conn:
+#         sql = "INSERT INTO chat_list (content, image) VALUES (%s, %s)"
+#         val = (content, image_url)
+#         with conn.cursor() as cursor:
+#             cursor.execute(sql, val)
+
+# 取得會員紀錄
+# def get_chat_records():
+#     with connection_pool.connection() as conn:
+#         sql = "SELECT content, image FROM chat_list"
+#         with conn.cursor() as cursor:
+#             cursor.execute(sql)
+#             result = cursor.fetchall()
+#             data = {"data": result}
+#             return data
+
+
+# 處理上傳檔案請求
+@app.route("/upload", methods=["POST"])
+def upload():
+    userid = request.form.get("userid")
+    userpassword = request.form.get("userpassword")
+    useremail = request.form.get("useremail")
+    file = request.files["image"]
+    filename = f"{datetime.now().timestamp()}.png"
+    s3.upload_fileobj(
+        file,
+        BUCKET_NAME,
+        filename,
+        ExtraArgs={
+            "ContentType": file.content_type
+        }
+    )
+    image_url = f"https://{BUCKET_NAME}.s3.{BUCKET_REGION}.amazonaws.com/{filename}"
+    # save_chat_record(content, image_url)
+
+    sql = "UPDATE member_list SET userid=%s ,password=%s, photo=%s WHERE useremail=%s;" #SQL指令 新增資料
+    val = (userid, userpassword, filename, useremail)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        connection_object.commit()
+    except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+        return (jsonify({
+            "error": True,
+            "message": "伺服器內部錯誤"
+            })),500
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")            
+        print("新訂閱者關鍵字")
+        return (jsonify({
+                "ok": True
+                })),200
+    
+
+# 處理取得會員紀錄請求
+@app.route("/upload", methods=["GET"])
+def get_upload():
+
+    useremail = request.args.get("useremail","")
+
+    sql = "SELECT userid, photo FROM member_list WHERE useremail=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    val = (useremail,)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        myresult = cursor.fetchall()
+        x=""
+        for x in myresult:
+            print(x)
+        print("Hello")
+        print(x[0]+","+x[1])
+        userid= x[0]
+        photo= x[1]       
+    except Error as e:
+        print("Error while connecting to MySQL using Connection pool ", e)
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+    print("MySQL connection is closed") 
+    results = []
+    result = {
+                "userid" : userid,
+                "photo":photo
+                    }
+    results.append(result)
+
+    # print(nextPageToken)
+    # print(prevPageToken)
+    return jsonify({
+            "data": results
+            }     ), 200 
 
 # @app.route("/api/playlist", methods=["GET"])
 # def api_playlist_get(): 
