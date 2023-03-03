@@ -83,6 +83,73 @@ html {
 .loginitemtext {
   cursor: pointer;
 }
+.contentphoto {
+  width: 200px;
+  height: 200px;
+  background-image: url(/PNG/woman.png);
+  background-size: contain;
+  justify-content: center;
+  border: 2px solid #543343;
+  border-radius: 110px;
+  margin: 10px;
+}
+#form {
+  width: 60vw;
+  margin-top: 50px;
+}
+#imagediv {
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+#image {
+  width: 168px;
+}
+#useriddiv {
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+#useremaildiv {
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+#userpassworddiv {
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+#usernewpassworddiv {
+  margin: 10px;
+  text-align: center;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+.contentdiv {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.imagediv {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
 .headline {
   /* Auto layout */
   display: flex;
@@ -96,7 +163,7 @@ html {
   background-size: cover;
   top: 54px;
   background-color: #c8acac0f;
-  /* min-height: 72px; */
+  min-height: 700px;
 }
 .view-list {
   display: flex;

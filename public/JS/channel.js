@@ -76,6 +76,12 @@ function gohome() {
   document.location.href = "/";
 }
 
+function gomember() {
+  console.time("2 的 10 次方花費的時間");
+  document.location.href = "/member";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
+
 // // Load the IFrame Player API code asynchronously
 // var tag = document.createElement("script");
 // tag.src = "https://www.youtube.com/player_api";

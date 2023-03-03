@@ -605,6 +605,12 @@ function gosubscriberlist() {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
+function gomember() {
+  console.time("2 的 10 次方花費的時間");
+  document.location.href = "/member";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
+
 console.time("2 的 10 次方花費的時間");
 
 var card = document.getElementsByClassName("card");
