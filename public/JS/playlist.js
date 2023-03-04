@@ -52,6 +52,8 @@ if (token != "") {
         console.log(login_response["data"]);
         if (login_response["data"] != null) {
           console.log("已登入");
+          thisuserphoto = login_response["data"]["photo"];
+          memberphoto(thisuserphoto);
           // const loginitemtext = document.querySelector(".loginitemtext");
           // loginitemtext.innerHTML = "登出系統";
           // const loginitem = document.querySelector("#loginitem");
@@ -65,6 +67,12 @@ if (token != "") {
   }
 } else {
   console.log("未登入");
+  const loginitemtext = document.querySelector(".loginitemtext");
+  loginitemtext.innerHTML = "登入/註冊";
+  const loginitem = document.querySelector("#loginitem");
+  loginitem.onclick = function () {
+    loginandout();
+  };
   // document.location.href = "/login";
   // cookiedata["id"] = "22";
   // cookiedata["userid"] = "introduction";
@@ -73,6 +81,23 @@ if (token != "") {
 
 function gohome() {
   document.location.href = "/";
+}
+
+function memberphoto(coverurl) {
+  if (coverurl == "") {
+    coverurl = "/PNG/usercat.png";
+  } else {
+    coverurl = "https://d10uvafhxfdwto.cloudfront.net/" + coverurl;
+  }
+  console.log(coverurl);
+  let usericon_div = document.querySelector(".usericon");
+  usericon_div.style.cssText = "background-image: url(" + coverurl + ")";
+}
+
+function loginandout() {
+  console.time("2 的 10 次方花費的時間");
+  document.location.href = "/login";
+  console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function gomember() {

@@ -191,6 +191,48 @@ html {
   flex-direction: column;
   align-items: center;
 }
+.sloganbanner {
+  width: 1200px;
+  height: 315px;
+  background-color: black;
+  border-radius: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.sloganbannertitle {
+  font-size: 50px;
+  color: #da291c;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  transition: transform 0.3s ease-in-out;
+}
+.sloganbannertitle:hover {
+  transform: scale(1.2);
+}
+.sloganbannerh1 {
+  font-size: 30px;
+  color: #fff;
+  margin: 25px;
+}
+.sloganbannerh2 {
+  font-size: 20px;
+  color: #fff;
+}
+.sloganbannerclose {
+  font-size: 20px;
+  color: #fff;
+  width: 20px;
+  position: relative;
+  left: 1160px;
+  bottom: 220px;
+  cursor: pointer;
+}
 .introductioncard {
   display: none;
   background-color: #fff;

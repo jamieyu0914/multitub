@@ -62,6 +62,19 @@ html {
   border: 0px;
   background-color: #ffffff;
 }
+.usericon {
+  min-width: 28px;
+  min-height: 28px;
+  background-image: url(/PNG/usercat.png);
+  background-size: contain;
+  border: 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  border: 2px solid #543343;
+  border-radius: 20px;
+  cursor: pointer;
+}
 .headline {
   /* Auto layout */
   display: flex;
