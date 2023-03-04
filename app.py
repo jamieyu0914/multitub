@@ -29,7 +29,7 @@ from datetime import datetime
 load_dotenv()
 
 
-DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY")
+DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY_II")
 youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
@@ -75,6 +75,10 @@ s3 = boto3.client(
 @app.route("/")
 def index():
 	return render_template("index.html")
+
+@app.route("/introduction")
+def introduction():
+	return render_template("introduction.html")    
 
 @app.route("/login")
 def main():
@@ -219,11 +223,13 @@ def signinget():
         id=x[0] #使用者編號
         userid=x[1] #ID名稱
         useremail=x[2] #電子郵件
+        photo=x[5] #大頭照
         return (jsonify({
                     "data": {
                     "id": id,
                     "userid": userid,
-                    "useremail": useremail
+                    "useremail": useremail,
+                    "photo": photo
                     }
                     }))    
 
@@ -880,12 +886,16 @@ def api_channel_get():
 
     youtube_response = youtube_request.execute()
     results = []
+    x="customUrl"
     for i in range(0,1):
         
         channel_item = youtube_response["items"][i]
         channel_title = channel_item["snippet"]["title"]
         description = channel_item["snippet"]["description"]
-        customUrl = channel_item["snippet"]["customUrl"]
+        if x in channel_item["snippet"]:
+            customUrl = channel_item["snippet"]["customUrl"]
+        else:
+            customUrl = ""
         published_at = channel_item["snippet"]["publishedAt"]
         thumbnail_url = channel_item["snippet"]["thumbnails"]["high"]["url"]
         subscribercount = channel_item["statistics"]["subscriberCount"]

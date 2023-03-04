@@ -65,7 +65,10 @@ if (token != "") {
   }
 } else {
   console.log("未登入");
-  document.location.href = "/login";
+  // document.location.href = "/login";
+  // cookiedata["id"] = "22";
+  // cookiedata["userid"] = "introduction";
+  // cookiedata["useremail"] = "introduction";
 }
 
 function gohome() {

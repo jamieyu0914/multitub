@@ -10,105 +10,12 @@ var thisuserid;
 
 var cookie = document.cookie;
 
-//判斷是否為登入狀態
-if ((cookie != "") & (cookie != "token=")) {
-  token = cookie.split("=")[1];
-} else {
-  token = "";
-}
+var thisuserid = "introduction";
+getorigincategorybutton(thisuserid);
 
-if (token != "") {
-  // console.log("HELLO HERE");
-
-  function parseJwt(token) {
-    console.time("2 的 10 次方花費的時間");
-    //decode JWT
-    var base64Url = token.split(".")[1];
-    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    var jsonPayload = decodeURIComponent(
-      window
-        .atob(base64)
-        .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-    console.timeEnd("2 的 10 次方花費的時間");
-    return JSON.parse(jsonPayload);
-  }
-
-  parseJwt(token);
-
-  getData("/api/user/auth");
-  function getData(url) {
-    console.time("2 的 10 次方花費的時間");
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        login_response = JSON.parse(this.response);
-        // console.log(login_response["data"]);
-        if (login_response["data"] != null) {
-          thisuserid = login_response["data"]["userid"];
-          thisuserphoto = login_response["data"]["photo"];
-          console.log("Hi~~ " + thisuserid);
-          console.log(thisuserphoto);
-          console.log("已登入");
-          getorigincategorybutton(thisuserid);
-          memberphoto(thisuserphoto);
-        }
-      }
-    };
-    console.timeEnd("2 的 10 次方花費的時間");
-    xhr.send(null);
-  }
-} else {
-  console.log("未登入");
-  document.location.href = "/introduction";
-}
-
-function memberphoto(coverurl) {
-  if (coverurl == "") {
-    coverurl = "/PNG/usercat.png";
-  } else {
-    coverurl = "https://d10uvafhxfdwto.cloudfront.net/" + coverurl;
-  }
-  console.log(coverurl);
-  let usericon_div = document.querySelector(".usericon");
-  usericon_div.style.cssText = "background-image: url(" + coverurl + ")";
-}
-
-function logout() {
+function loginandout() {
   console.time("2 的 10 次方花費的時間");
-  let cookiedata = parseJwt(token);
-
-  const data = {
-    id: cookiedata["id"],
-    userid: cookiedata["userid"],
-    useremail: cookiedata["useremail"],
-  };
-  console.log(cookiedata["id"]);
-  console.log(cookiedata["userid"]);
-  console.log(cookiedata["useremail"]);
-
-  fetch(`/api/user/auth`, {
-    method: "DELETE",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json",
-    },
-  }).then(function (response) {
-    response.json().then(function (data) {
-      // console.log(data);
-      message = data["message"];
-      if (data["ok"] == true) {
-        document.location.href = "/";
-      } else if (data["error"] == true) {
-        console.log("尚未登出");
-      }
-    });
-  });
+  document.location.href = "/login";
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
@@ -193,7 +100,8 @@ function getcategorybutton() {
 
   let _categorybutton_inform = document.createElement("div");
   _categorybutton_inform.onclick = function () {
-    addtopic();
+    loginandout();
+    // addtopic();
   };
   _categorybutton_inform.classList.add("categorybutton_inform");
   let _categorybutton_inform_text = document.createTextNode("＋新增主題");
@@ -298,7 +206,7 @@ function getcategoryvideo(keyword) {
     .then(function (data) {
       //整理
       let array = [];
-      for (i = 0; i < 20; i++) {
+      for (i = 0; i < 8; i++) {
         // console.log("---------");
         // console.log(nextPage);
         let posts = data["data"][i];
@@ -377,12 +285,10 @@ function getcategoryvideo(keyword) {
 }
 
 function deletetopic(deletetopicid, deletetopicname) {
-  let cookiedata = parseJwt(token);
-
   const data = {
-    id: cookiedata["id"],
-    name: cookiedata["name"],
-    email: cookiedata["email"],
+    id: "22",
+    name: "introduction",
+    email: "introduction",
     topicid: deletetopicid,
     topicname: deletetopicname,
   };
@@ -412,16 +318,100 @@ function gohome() {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
-function govideolist() {
+function introductiontopiclist() {
   console.time("2 的 10 次方花費的時間");
-  document.location.href = "/videolist";
+  let view_right_div = document.getElementById("view-right");
+  view_right_div.style.cssText = "display:none";
+
+  let _introductioncard_div = document.querySelector(".introductioncard");
+  _introductioncard_div.style.cssText = "display:flex;";
+
+  let _introductioncard_photo_div = document.querySelector(
+    ".introductioncard_photo"
+  );
+  _introductioncard_photo_div.style.cssText =
+    "background-image: url(/PNG/topicmark.png)";
+
+  let introductioncard_title_div = document.querySelector(
+    ".introductioncard_title"
+  );
+  introductioncard_title_div.innerHTML = "盡情欣賞你所關注的主題內容";
+
+  let introductioncard_information_div = document.querySelector(
+    ".introductioncard_information"
+  );
+  introductioncard_information_div.innerHTML =
+    "登入後即可查看你關注或紀錄的主題內容";
+
+  let introductioncard_loginandout_div = document.querySelector(
+    ".introductioncard_loginandout"
+  );
+  introductioncard_loginandout_div.innerHTML = "登入/註冊";
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
-function gosubscriberlist() {
+function introductionvideolist() {
   console.time("2 的 10 次方花費的時間");
-  document.location.href = "/subscriberlist";
+  let view_right_div = document.getElementById("view-right");
+  view_right_div.style.cssText = "display:none";
+
+  let _introductioncard_div = document.querySelector(".introductioncard");
+  _introductioncard_div.style.cssText = "display:flex;";
+
+  let _introductioncard_photo_div = document.querySelector(
+    ".introductioncard_photo"
+  );
+  _introductioncard_photo_div.style.cssText =
+    "background-image: url(/PNG/video.png)";
+
+  let introductioncard_title_div = document.querySelector(
+    ".introductioncard_title"
+  );
+  introductioncard_title_div.innerHTML = "盡情欣賞你最喜愛的影片";
+
+  let introductioncard_information_div = document.querySelector(
+    ".introductioncard_information"
+  );
+  introductioncard_information_div.innerHTML =
+    "登入後即可查看你喜歡或儲存的影片";
+
+  let introductioncard_loginandout_div = document.querySelector(
+    ".introductioncard_loginandout"
+  );
+  introductioncard_loginandout_div.innerHTML = "登入/註冊";
   console.timeEnd("2 的 10 次方花費的時間");
+}
+
+function introductionsubscriberlist() {
+  console.time("2 的 10 次方花費的時間");
+  let view_right_div = document.getElementById("view-right");
+  view_right_div.style.cssText = "display:none";
+
+  let _introductioncard_div = document.querySelector(".introductioncard");
+  _introductioncard_div.style.cssText = "display:flex;";
+
+  let _introductioncard_photo_div = document.querySelector(
+    ".introductioncard_photo"
+  );
+  _introductioncard_photo_div.style.cssText =
+    "background-image: url(/PNG/subscriber.png)";
+
+  let introductioncard_title_div = document.querySelector(
+    ".introductioncard_title"
+  );
+  introductioncard_title_div.innerHTML = "別錯過訂閱者新發布的影片";
+  console.timeEnd("2 的 10 次方花費的時間");
+
+  let introductioncard_information_div = document.querySelector(
+    ".introductioncard_information"
+  );
+  introductioncard_information_div.innerHTML =
+    "登入後即可查看你最喜愛的 YouTube 頻道的最新動態";
+
+  let introductioncard_loginandout_div = document.querySelector(
+    ".introductioncard_loginandout"
+  );
+  introductioncard_loginandout_div.innerHTML = "登入/註冊";
 }
 
 function gomember() {
@@ -470,9 +460,10 @@ window.addEventListener(
       // console.log(e.target);
       // console.log(e.target.id);
     } else if (e.target.className == "new_categorybutton_close") {
-      let deletetopicid = e.target.id;
-      let deletetopicname = e.target.name;
-      deletetopic(deletetopicid, deletetopicname);
+      loginandout();
+      // let deletetopicid = e.target.id;
+      // let deletetopicname = e.target.name;
+      // deletetopic(deletetopicid, deletetopicname);
       // console.log(e.target.id);
       // console.log(e.target.name);
     }
