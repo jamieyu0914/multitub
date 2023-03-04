@@ -70,7 +70,7 @@ html {
 .usericon {
   min-width: 28px;
   min-height: 28px;
-  background-image: url(/PNG/woman.png);
+  background-image: url(/PNG/usercat.png);
   background-size: contain;
   border: 0px;
   display: flex;
@@ -178,6 +178,7 @@ html {
   flex-wrap: nowrap;
   align-items: center;
   margin-left: 10px;
+  min-height: 1296px;
 }
 .view-right {
   background-color: #fff;
@@ -189,6 +190,44 @@ html {
   background-image: url(/PNG/film.png);
   flex-direction: column;
   align-items: center;
+}
+.introductioncard {
+  display: none;
+  background-color: #fff;
+  width: 95vw;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  background-size: contain;
+  flex-direction: column;
+  align-items: center;
+}
+.introductioncard_photo {
+  background-color: #fff;
+  width: 95vw;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  background-size: contain;
+  height: 235px;
+  margin: 10px;
+}
+.introductioncard_title {
+  margin: 10px;
+}
+.introductioncard_information {
+  margin: 10px;
+  font-size: 14px;
+}
+.introductioncard_loginandout {
+  margin: 10px;
+  font-size: 14px; /* border: 2px; */
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 5px;
+  background-color: black;
+  color: #fff;
+  cursor: pointer;
 }
 .categoryline {
   display: flex;
@@ -919,18 +958,18 @@ html {
   position: fixed;
   top: 54px;
   left: 0;
-  bottom: 0;
+  bottom: 54px;
   right: 0;
   content: " ";
   background: #fff;
   display: block;
-  height: 17.5vw;
   z-index: 999;
   background-image: url(/PNG/loaddingblocks.gif);
   background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: center;
   background-size: auto;
+  height: 800px;
 }
 .search-button {
   height: 48px;
@@ -1071,6 +1110,7 @@ html {
   justify-content: center;
   height: 104px;
   top: 54px;
+  z-index: 1000;
 }
 .footer .text {
   /* Body - Bold 16(13.3) */

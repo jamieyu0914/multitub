@@ -53,9 +53,12 @@ if (token != "") {
         // console.log(login_response["data"]);
         if (login_response["data"] != null) {
           thisuserid = login_response["data"]["userid"];
+          thisuserphoto = login_response["data"]["photo"];
           console.log("Hi~~ " + thisuserid);
+          console.log(thisuserphoto);
           console.log("已登入");
           getoriginsubscriberbutton(thisuserid);
+          memberphoto(thisuserphoto);
         }
       }
     };
@@ -65,6 +68,17 @@ if (token != "") {
 } else {
   console.log("未登入");
   document.location.href = "/login";
+}
+
+function memberphoto(coverurl) {
+  if (coverurl == "") {
+    coverurl = "/PNG/usercat.png";
+  } else {
+    coverurl = "https://d10uvafhxfdwto.cloudfront.net/" + coverurl;
+  }
+  console.log(coverurl);
+  let usericon_div = document.querySelector(".usericon");
+  usericon_div.style.cssText = "background-image: url(" + coverurl + ")";
 }
 
 function logout() {
