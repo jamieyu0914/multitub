@@ -206,7 +206,7 @@ function getcategoryvideo(keyword) {
     .then(function (data) {
       //整理
       let array = [];
-      for (i = 0; i < 8; i++) {
+      for (i = 0; i < 12; i++) {
         // console.log("---------");
         // console.log(nextPage);
         let posts = data["data"][i];
@@ -318,6 +318,13 @@ function gohome() {
   console.timeEnd("2 的 10 次方花費的時間");
 }
 
+function bannerclose() {
+  console.time("2 的 10 次方花費的時間");
+  let sloganbanner_div = document.querySelector(".sloganbanner");
+  sloganbanner_div.style.cssText = "display:none";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
+
 function introductiontopiclist() {
   console.time("2 的 10 次方花費的時間");
   let view_right_div = document.getElementById("view-right");
@@ -367,7 +374,7 @@ function introductionvideolist() {
   let introductioncard_title_div = document.querySelector(
     ".introductioncard_title"
   );
-  introductioncard_title_div.innerHTML = "盡情欣賞你最喜愛的影片";
+  introductioncard_title_div.innerHTML = "盡情觀看你最喜愛的影片";
 
   let introductioncard_information_div = document.querySelector(
     ".introductioncard_information"

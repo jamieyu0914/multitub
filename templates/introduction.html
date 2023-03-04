@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MultiTube-我的多元影音網站</title>
     <link rel="stylesheet" type="text/css" href="/CSS/layout.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon_io//apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon_io/favicon-16x16.png"
+    />
   </head>
   <body
     style="
@@ -51,7 +68,7 @@
       </div>
       <div class="headline" id="headline">
         <div class="view-list" id="view-list">
-          <div class="view-left" id="view-left">
+          <div class="view-left" id="view-left" style="min-height: fit-content">
             <div class="mytoopiclist" onclick="introductiontopiclist()">
               <div class="mytoopiclisticon"></div>
               <div class="mytoopiclisticontext">主題分類</div>
@@ -73,6 +90,16 @@
           </div>
           <div class="view-right" id="view-right">
             <div class="loadding-blocker"></div>
+            <div class="sloganbanner">
+              <div class="sloganbannertitle">MultiTube</div>
+              <div class="sloganbannerh1">
+                復刻Youtube分類 讓您自由新增主題與類別內的影片
+              </div>
+              <div class="sloganbannerh2">
+                點擊側欄按鈕來了解更多頁面功能，馬上進行登入/註冊。
+              </div>
+              <div class="sloganbannerclose" onclick="bannerclose()">X</div>
+            </div>
             <div class="categoryline" id="categoryline">
               <!-- <div class="categorybutton" id="categorybutton1"></div>
             <div class="categorybutton" id="categorybutton2"></div>
