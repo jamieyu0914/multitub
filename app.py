@@ -24,13 +24,14 @@ from googleapiclient.errors import HttpError
 from flask import Flask, request, send_from_directory, jsonify
 import boto3
 from datetime import datetime
+import random
+
 
 
 load_dotenv()
 
+options = ["YOUTUBE_KEY_DEVELOPER_KEY", "YOUTUBE_KEY_DEVELOPER_KEY_I", "YOUTUBE_KEY_DEVELOPER_KEY_II", "YOUTUBE_KEY_DEVELOPER_KEY_III", "YOUTUBE_KEY_DEVELOPER_KEY_IIII", "YOUTUBE_KEY_DEVELOPER_KEY_IIIII"]
 
-DEVELOPER_KEY = os.getenv("YOUTUBE_KEY_DEVELOPER_KEY_I")
-youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -699,6 +700,7 @@ def deletesubscriberlist():
 @app.route("/api/search", methods=["POST"])
 def api_search_post():
 
+
     #新增一個主題分類
     post = request.get_json()
     userid = post["userid"]
@@ -791,6 +793,12 @@ def api_search_post():
 
 @app.route("/api/search", methods=["GET"])
 def api_search_get(): 
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
     
     keyword = request.args.get("keyword","")
     # keyword="蘋果發表會"
@@ -841,6 +849,13 @@ def api_search_get():
 
 # @app.route("/api/playlist", methods=["GET"])
 # def api_playlist_get(): 
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
+
     playlistId = request.args.get("playlistId","")
     # keyword="蘋果發表會"
     print("搜尋播放清單"+playlistId)
@@ -880,6 +895,13 @@ def api_search_get():
 
 @app.route("/api/channel", methods=["GET"])
 def api_channel_get(): 
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
+
     channelId = request.args.get("channel","")
     # keyword="蘋果發表會"
     print("搜尋播放清單"+channelId)
@@ -931,6 +953,12 @@ def api_channel_get():
 
 @app.route("/api/channelvideo", methods=["GET"])
 def api_channelvideo_get(): 
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
     
     
     channelTitle = request.args.get("channelTitle","")
@@ -1172,6 +1200,12 @@ def api_category_get():
 @app.route("/api/addvideo", methods=["POST"])
 def api_addvideo_post():
 
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
+
  #新增一個主題分類的影片
     post = request.get_json()
     userid = post["userid"]
@@ -1286,6 +1320,12 @@ def api_addvideo_post():
 
 @app.route("/api/subscribervideo", methods=["POST"])
 def api_subscriber_post():
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
 
     #新增一個主題分類
     post = request.get_json()
@@ -1417,6 +1457,12 @@ def api_subscriber_post():
 
 @app.route("/api/subscribervideo", methods=["GET"])
 def api_subscriber_get(): 
+
+    random_choice = random.choice(options)
+    print(random_choice)
+
+    DEVELOPER_KEY = os.getenv(random_choice)
+    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
     
     userid = request.args.get("userid","")
     keyword = request.args.get("keyword","")
