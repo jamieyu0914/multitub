@@ -922,6 +922,62 @@ def api_channel_get():
             "data": results
             }     ), 200  
 
+@app.route("/api/channelvideo", methods=["GET"])
+def api_channelvideo_get(): 
+    
+    
+    channelTitle = request.args.get("channelTitle","")
+    thisitemId = request.args.get("thisitemId","")
+
+    # keyword="蘋果發表會"
+    print("搜尋頻道影片:"+channelTitle)
+      
+    #search
+    youtube_request = youtube.search().list(
+        part="snippet",
+        maxResults=21,
+        order="date",
+        channelId=thisitemId,
+        type="video",
+    )
+    youtube_response = youtube_request.execute()
+    # print(response,"\n")
+    # nums = (len(youtube_response)-1) 
+    # print(nums)
+    results = []
+    # nextPageToken = youtube_response["nextPageToken"] #CDIQAA
+    # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
+    # print(youtube_response["items"])
+    # print(results['id'].get('videoId'))
+    for i in range(0,4):
+        # print("------")
+        title=youtube_response["items"][i]["snippet"]["title"]
+        coverurl=youtube_response["items"][i]["snippet"]["thumbnails"]["high"]["url"]
+        channelTitle=youtube_response["items"][i]["snippet"]["channelTitle"]
+        itemId=youtube_response["items"][i]["id"]
+            
+        
+        # print(title)
+        # print(coverurl)
+        # print(channelTitle)
+        print(itemId)
+        # print("------")
+        result = {
+                "thisId" : i,
+                "title":title,
+                "coverurl":coverurl,
+                "channelTitle": channelTitle,
+                "itemId":itemId
+                    }
+        results.append(result)
+
+    # print(nextPageToken)
+    # print(prevPageToken)
+    return jsonify({
+            "data": results
+            }     ), 200  
+
+
 @app.route("/api/categoryvideo", methods=["POST"])
 def api_category_post():
 
