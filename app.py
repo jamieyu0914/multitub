@@ -122,11 +122,18 @@ def signup():
     password = post["password"]
     # print(name, email, password)
 
+
     if(userid =="" or useremail == "" or password == ""): #驗證失敗
         return (jsonify({
                 "error": True,
                 "message": "註冊失敗，請輸入ID名稱、電子郵件與密碼"
                 })),400
+
+    if ((("@" in useremail) == False) or (useremail.index("@") == len(useremail)-1) or (useremail.index("@") > useremail.index(" "))):
+        return (jsonify({
+                "error": True,
+                "message": "註冊失敗，電子郵件格式錯誤"
+                })),400            
 
     sql = "SELECT useremail FROM member_list WHERE useremail=%s" #SQL指令 檢查是否有重複的帳號 (email)
     val = (useremail,)
@@ -1558,8 +1565,8 @@ def upload():
     image_url = f"https://{BUCKET_NAME}.s3.{BUCKET_REGION}.amazonaws.com/{filename}"
     # save_chat_record(content, image_url)
 
-    sql = "UPDATE member_list SET userid=%s ,password=%s, photo=%s WHERE useremail=%s;" #SQL指令 新增資料
-    val = (userid, userpassword, filename, useremail)
+    sql = "UPDATE member_list SET password=%s, photo=%s WHERE userid=%s and useremail=%s;" #SQL指令 新增資料
+    val = (userpassword, filename, userid, useremail)
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
