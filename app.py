@@ -942,10 +942,10 @@ def api_channelvideo_get():
     #search
     youtube_request = youtube.search().list(
         part="snippet",
-        maxResults=21,
+        maxResults=4,
         order="date",
         channelId=thisitemId,
-        type="video",
+        type="video,playlist"
     )
     youtube_response = youtube_request.execute()
     # print(response,"\n")
