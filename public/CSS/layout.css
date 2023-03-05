@@ -71,7 +71,7 @@ html {
   min-width: 28px;
   min-height: 28px;
   background-image: url(/PNG/usercat.png);
-  background-size: contain;
+  background-size: cover;
   border: 0px;
   display: flex;
   justify-content: center;
@@ -87,9 +87,9 @@ html {
   width: 200px;
   height: 200px;
   background-image: url(/PNG/woman.png);
-  background-size: contain;
+  background-size: cover;
   justify-content: center;
-  border: 2px solid #543343;
+  border: 5px solid #543343;
   border-radius: 110px;
   margin: 10px;
 }
@@ -385,8 +385,30 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 55px;
+  padding-bottom: 40px;
+}
+.ytchannelvideo {
+  margin-bottom: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.ytchannelvideosign {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   padding: 20px;
-  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-left: 40px;
+}
+.newestvideosignicon {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
+.newestvideosigntext {
+  font-size: 16px;
 }
 .ytchannelmenublock-left {
   min-width: 365px;

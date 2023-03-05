@@ -208,6 +208,8 @@ const controller = {
   },
 
   send: function (e) {
+    let contentphoto = document.querySelector(".contentphoto");
+    contentphoto.style.cssText = "background-image: url(/PNG/update.png);)";
     e.preventDefault();
     let userid = document.getElementById("userid").innerText;
     let userpassword = document.getElementById("userpassword").value;

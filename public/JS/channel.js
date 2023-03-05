@@ -299,7 +299,112 @@ function getchannel(thisitemId) {
 
       // let videoId = data["data"]["videoId"];
       // getchannelvideo(videoId);
+      getoriginchannelvideo(channelTitle, thisitemId);
     });
+  isLoading = false;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "none";
+  console.timeEnd("2 的 10 次方花費的時間");
+}
+
+function getoriginchannelvideo(channelTitle, thisitemId) {
+  console.time("2 的 10 次方花費的時間");
+  //讀取資料
+  isLoading = true;
+  // console.log(isLoading);
+  let rest = document.querySelector(".ytchannelvideo");
+  rest.innerHTML = "";
+  // console.log(thisuserid);
+  // console.log(keyword);
+  // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
+  fetch(
+    `/api/channelvideo?channelTitle=${channelTitle}&thisitemId=${thisitemId}`
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      //整理
+      let array = [];
+      let post = data["data"];
+      let length = post.length;
+
+      for (i = 0; i < length; i++) {
+        // console.log("---------");
+        // console.log(nextPage);
+        let posts = data["data"][i];
+        // console.log(posts);
+
+        let itemId = posts["itemId"];
+        if (itemId["kind"] == "youtube#channel") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["channelId"];
+        } else if (itemId["kind"] == "youtube#playlist") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["playlistId"];
+        } else if (itemId["kind"] == "youtube#video") {
+          type = itemId["kind"].split("#")[1];
+          tag = itemId["videoId"];
+        }
+
+        console.log(type, tag);
+        thisvideoidnumber = i;
+        let title = posts["title"];
+        titlelength = title.length;
+        if (titlelength > 32) {
+          title = title.substring(0, 32) + "...";
+        }
+        let coverurl = posts["coverurl"];
+        let channelTitle = posts["channelTitle"];
+
+        //製作分類影片卡 //跑6次
+        let list = "ytchannelvideo";
+        let newcard = document.getElementsByClassName(list);
+        let _card_div = document.createElement("div");
+        _card_div.classList.add("card");
+
+        let _image_container_div = document.createElement("div");
+        _image_container_div.classList.add("image_container");
+
+        let _photo_div = document.createElement("div");
+        _photo_div.id = thisvideoidnumber;
+        _photo_div.name = type + "/" + tag;
+
+        _photo_div.classList.add("photo");
+        _photo_div.style.cssText = "background-image: url(" + coverurl + ")";
+        let _photo_mask = document.createElement("div");
+        _photo_mask.classList.add("photo_mask");
+        let _mask_title = document.createElement("div");
+        _mask_title.id = thisvideoidnumber;
+        _mask_title.name = type + "/" + tag;
+        _mask_title.classList.add("mask_title");
+        let _newcard_title_text = document.createTextNode(channelTitle);
+        _mask_title.appendChild(_newcard_title_text);
+
+        let _card_inform = document.createElement("div");
+        _card_inform.classList.add("card_inform");
+        let _video_inform = document.createElement("div");
+        _video_inform.classList.add("video_inform");
+        _video_inform.id = thisvideoidnumber;
+        _video_inform.name = type + "/" + tag;
+        let _video_inform_text = document.createTextNode(title);
+        _video_inform.appendChild(_video_inform_text);
+
+        //放到位置上
+        _image_container_div.appendChild(_photo_div);
+        _image_container_div.appendChild(_photo_mask);
+        _image_container_div.appendChild(_mask_title);
+
+        _card_inform.appendChild(_video_inform);
+        _card_div.appendChild(_image_container_div);
+        _card_div.appendChild(_card_inform);
+
+        newcard[0].appendChild(_card_div);
+      }
+      // console.log(data["data"]);
+      // getcategoryvideo();
+    });
+
   isLoading = false;
   let loadingblocker = document.querySelector(".loadding-blocker");
   loadingblocker.style.display = "none";
@@ -340,3 +445,51 @@ function logout() {
   });
   console.timeEnd("2 的 10 次方花費的時間");
 }
+
+window.addEventListener(
+  "click",
+  function once(e) {
+    if (e.target.className == "photo") {
+      // console.log("點擊 影片編號" + e.target.id);
+      let videoId = e.target.id;
+      let thisitemtag = e.target.name;
+      // console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
+    } else if (e.target.className == "mask_title") {
+      // console.log("點擊 影片編號" + e.target.id);
+      let videoId = e.target.id;
+      let thisitemtag = e.target.name;
+      // console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
+    } else if (e.target.className == "video_inform") {
+      // console.log("點擊 影片編號" + e.target.id);
+      let videoId = e.target.id;
+      let thisitemtag = e.target.name;
+      // console.log(videoId, thisitemtag);
+      document.location.href = `/play/${thisitemtag}`;
+    } else if (e.target.className == "new_categorybutton_inform") {
+      let _categorybutton_close = document.getElementById(
+        "_close_" + e.target.id
+      );
+      // console.log(_categorybutton_close.style.display);
+      if (
+        _categorybutton_close.style.display == "" ||
+        _categorybutton_close.style.display == "none"
+      ) {
+        _categorybutton_close.style.display = "block";
+      } else {
+        _categorybutton_close.style.display = "none";
+      }
+      // console.log(_categorybutton_close.style.display);
+      // console.log(e.target);
+      // console.log(e.target.id);
+    } else if (e.target.className == "new_categorybutton_close") {
+      let deletetopicid = e.target.id;
+      let deletetopicname = e.target.name;
+      deletetopic(deletetopicid, deletetopicname);
+      // console.log(e.target.id);
+      // console.log(e.target.name);
+    }
+  },
+  false
+);

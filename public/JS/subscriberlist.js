@@ -170,7 +170,7 @@ function getoriginsubscriberbutton(thisuserid) {
         newbutton[0].appendChild(_button_div);
       }
       if (post.length == 0) {
-        var lastsubscriber = "@rayduenglish"; // 預設清單分類為「音樂」
+        let lastsubscriber = "@rayduenglish"; // 預設清單分類為「音樂」
         getcategorybutton();
         postcategoryvideo(thisuserid, lastsubscriber);
         document.location.href = "/subscriberlist";
@@ -314,7 +314,7 @@ function postcategoryvideo(thisuserid, lastsubscriber) {
       if (data["ok"] == true) {
         // console.log(data["ok"]);
         // console.log(keyword + "!!");
-        getoriginsubscribervideo(thisuserid, keyword);
+        getoriginsubscribervideo(thisuserid, lastsubscriber);
       } else {
         // console.log(data["error"]);
       }
