@@ -461,10 +461,14 @@ function addsubscriberdata() {
 
   // console.log(categorykeyword);
   var newkeyword = document.getElementById("subscriberkeyword").value;
+
+  isLoading = true;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "block";
   // console.log(newkeyword);
   posttoaddcategoryvideo(thisuserid, newkeyword);
   hideview();
-  // document.location.href = "/subscriberlist";
+  document.location.href = "/subscriberlist";
   // console.timeEnd("2 的 10 次方花費的時間");
 }
 
