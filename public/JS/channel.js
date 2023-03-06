@@ -1,7 +1,7 @@
-var isLoading = true;
+isLoading = true;
 
 let loadingblocker = document.querySelector(".loadding-blocker");
-loadingblocker.style.display = "flex";
+loadingblocker.style.display = "block";
 
 var nextPage;
 
@@ -301,9 +301,9 @@ function getchannel(thisitemId) {
       // getchannelvideo(videoId);
       getoriginchannelvideo(channelTitle, thisitemId);
     });
-  isLoading = false;
-  let loadingblocker = document.querySelector(".loadding-blocker");
-  loadingblocker.style.display = "none";
+  // isLoading = false;
+  // let loadingblocker = document.querySelector(".loadding-blocker");
+  // loadingblocker.style.display = "none";
   // // console.timeEnd("2 的 10 次方花費的時間");
 }
 

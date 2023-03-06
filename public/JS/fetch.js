@@ -239,6 +239,11 @@ function getsearchdata() {
   var newkeyword = document.getElementById("keyword").value;
   // console.log(newkeyword);
   keyword = newkeyword;
+
+  sLoading = true;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "block";
+
   postcategoryvideo(thisuserid, newkeyword);
   hideview();
   document.location.href = "/";

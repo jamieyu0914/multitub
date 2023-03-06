@@ -1334,8 +1334,8 @@ def api_addvideo_post():
 
  
 
-    sql = "INSERT INTO video_list (categoryid, videoid, title, coverurl, channeltitle, userid) VALUES (%s, %s, %s, %s, %s, %s)" #SQL指令 新增資料
-    val = (categorynumber, youtubevideoidkeyword, title, coverurl, channelTitle, userid)
+    sql = "INSERT INTO video_list (categoryid, videoid, title, coverurl, channeltitle) VALUES (%s, %s, %s, %s, %s)" #SQL指令 新增資料
+    val = (categorynumber, youtubevideoidkeyword, title, coverurl, channelTitle)
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用

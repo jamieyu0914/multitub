@@ -265,13 +265,23 @@ function getvideolistdata() {
   var newkeyword = document.getElementById("keyword").value;
   // console.log(newkeyword);
   keyword = newkeyword;
+
+  isLoading = true;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "block";
+
   postcategoryvideo(thisuserid, newkeyword);
   hideview();
+  document.location.reload;
   document.location.href = "/videolist";
   // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function postcategoryvideo(thisuserid, lastcategory) {
+  isLoading = true;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "block";
+
   // console.time("2 的 10 次方花費的時間");
   //清空舊資料
   let rest = document.querySelector(".list-block");
@@ -522,19 +532,13 @@ function deletecategory(deletecategoryid, deletecategoryname) {
   });
 }
 
-function addvideodata(categorykeyword) {
+function addvideodata() {
   // console.time("2 的 10 次方花費的時間" + "0 0");
   // console.log(categorykeyword);
 
+  let new_image_container_div = document.querySelector("#new_image_container");
+  categorykeyword = new_image_container_div.name;
   console.log(categorykeyword);
-
-  if (categorykeyword == "undefined") {
-    let new_image_container_div = document.querySelector(
-      "#new_image_container"
-    );
-    categorykeyword = new_image_container_div.name;
-    console.log(categorykeyword);
-  }
 
   var newkeyword = document.getElementById("videokeyword").value;
   let str1 = newkeyword.includes("youtube.com/watch?v=");
@@ -548,10 +552,14 @@ function addvideodata(categorykeyword) {
   } else if (str3 == true) {
     newkeyword = newkeyword.split("/play/video/")[1];
   }
+
+  isLoading = true;
+  let loadingblocker = document.querySelector(".loadding-blocker");
+  loadingblocker.style.display = "block";
   // console.log(newkeyword);
   posttoaddcategoryvideo(thisuserid, newkeyword, categorykeyword);
   hideview();
-  // document.location.href = "/videolist";
+  document.location.href = "/videolist";
   // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
@@ -586,6 +594,7 @@ function posttoaddcategoryvideo(thisuserid, lastcategory, categorykeyword) {
         // console.log(keyword + "!!");
 
         getorigincategoryvideo(thisuserid, categorykeyword);
+        document.location.href = "/videolist";
       } else {
         console.log(data["error"]);
         let searchvideoinformationblock_div = document.querySelector(
@@ -709,6 +718,9 @@ window.addEventListener(
       // console.log(e.target);
       // console.log(e.target.id);
     } else if (e.target.className == "new_categorybutton_close") {
+      isLoading = true;
+      let loadingblocker = document.querySelector(".loadding-blocker");
+      loadingblocker.style.display = "block";
       let deletecategoryid = e.target.id;
       deletecategoryid = deletecategoryid.split("_close_")[1];
       let deletecategoryname = categorykeyword;
