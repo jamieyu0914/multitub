@@ -573,6 +573,25 @@ function posttoaddcategoryvideo(thisuserid, lastsubscriber) {
   keyword = lastsubscriber;
   // console.log(categorykeyword);
 
+  if (keyword.includes("@") == true) {
+    let str1 = keyword.includes("youtube.com/");
+
+    if (str1 == true) {
+      keyword = keyword.split("youtube.com/")[1];
+    }
+  }
+
+  if (keyword.startsWith("@") == false) {
+    let str2 = keyword.includes("youtube.com/channel/");
+    let str3 = keyword.includes("/play/channel/");
+
+    if (str2 == true) {
+      keyword = keyword.split("www.youtube.com/channel/")[1];
+    } else if (str3 == true) {
+      keyword = keyword.split("/play/channel/")[1];
+    }
+  }
+
   const data = {
     userid: thisuserid,
     keyword: keyword,
