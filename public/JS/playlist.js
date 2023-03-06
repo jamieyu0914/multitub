@@ -95,22 +95,22 @@ function memberphoto(coverurl) {
 }
 
 function loginandout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/login";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function gomember() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/member";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 var tag = document.querySelector(".ytlistplayer");
 tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 
 // function getplaylist(thisitemId) {
-//   console.time("2 的 10 次方花費的時間");
+//   // console.time("2 的 10 次方花費的時間");
 //   //讀取資料
 //   isLoading = true;
 //   // // console.log(isLoading);
@@ -131,7 +131,7 @@ tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 //       return videoId;
 //     });
 //   isLoading = false;
-//   console.timeEnd("2 的 10 次方花費的時間");
+//   // // console.timeEnd("2 的 10 次方花費的時間");
 // }
 
 // getplaylistvideo(thisitemId);
@@ -145,7 +145,7 @@ tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 // tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 
 function logout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let cookiedata = parseJwt(token);
 
   const data = {
@@ -174,5 +174,5 @@ function logout() {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }

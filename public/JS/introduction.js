@@ -14,13 +14,13 @@ var thisuserid = "introduction";
 getorigincategorybutton(thisuserid);
 
 function loginandout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/login";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getorigincategorybutton(thisuserid) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //清空資料
   let rest = document.querySelector(".categoryline");
   rest.innerHTML = "";
@@ -83,11 +83,11 @@ function getorigincategorybutton(thisuserid) {
       }
     });
   isLoading = false;
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategorybutton() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // console.log(isLoading);
@@ -110,51 +110,51 @@ function getcategorybutton() {
   //放到位置上
   _button_div.appendChild(_categorybutton_inform);
   newbutton[0].appendChild(_button_div);
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function addtopic() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   // console.log("hi");
   let _searchblock_div = document.querySelector(".searchblock");
   _searchblock_div.style.cssText = "display:block";
   let _blocker_div = document.querySelector(".blocker");
   _blocker_div.style.cssText = "display:block";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function hideview() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   const searchblock_view = document.querySelector(".searchblock");
   searchblock_view.style.display = "none";
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function categoryview() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   const thetext = document.querySelector(".inputtext");
   thetext.style.display = "none";
 
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "flex";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getsearchdata() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   var newkeyword = document.getElementById("keyword").value;
   // console.log(newkeyword);
   keyword = newkeyword;
   postcategoryvideo(thisuserid, newkeyword);
   hideview();
   document.location.href = "/";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function postcategoryvideo(thisuserid, lasttopic) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //清空舊資料
   let rest = document.querySelector(".list-block");
   rest.innerHTML = "";
@@ -187,11 +187,11 @@ function postcategoryvideo(thisuserid, lasttopic) {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategoryvideo(keyword) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // console.log(isLoading);
@@ -281,7 +281,7 @@ function getcategoryvideo(keyword) {
   isLoading = false;
   let loadingblocker = document.querySelector(".loadding-blocker");
   loadingblocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function deletetopic(deletetopicid, deletetopicname) {
@@ -313,20 +313,20 @@ function deletetopic(deletetopicid, deletetopicname) {
 }
 
 function gohome() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function bannerclose() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let sloganbanner_div = document.querySelector(".sloganbanner");
   sloganbanner_div.style.cssText = "display:none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function introductiontopiclist() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let view_right_div = document.getElementById("view-right");
   view_right_div.style.cssText = "display:none";
 
@@ -354,11 +354,11 @@ function introductiontopiclist() {
     ".introductioncard_loginandout"
   );
   introductioncard_loginandout_div.innerHTML = "登入/註冊";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function introductionvideolist() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let view_right_div = document.getElementById("view-right");
   view_right_div.style.cssText = "display:none";
 
@@ -386,11 +386,11 @@ function introductionvideolist() {
     ".introductioncard_loginandout"
   );
   introductioncard_loginandout_div.innerHTML = "登入/註冊";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function introductionsubscriberlist() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let view_right_div = document.getElementById("view-right");
   view_right_div.style.cssText = "display:none";
 
@@ -407,7 +407,7 @@ function introductionsubscriberlist() {
     ".introductioncard_title"
   );
   introductioncard_title_div.innerHTML = "別錯過訂閱者新發布的影片";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 
   let introductioncard_information_div = document.querySelector(
     ".introductioncard_information"
@@ -422,12 +422,12 @@ function introductionsubscriberlist() {
 }
 
 function gomember() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/member";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
-console.time("2 的 10 次方花費的時間");
+// console.time("2 的 10 次方花費的時間");
 var card = document.getElementsByClassName("card");
 window.addEventListener(
   "click",
@@ -477,4 +477,4 @@ window.addEventListener(
   },
   false
 );
-console.timeEnd("2 的 10 次方花費的時間");
+// // console.timeEnd("2 的 10 次方花費的時間");

@@ -21,7 +21,7 @@ if (token != "") {
   // console.log("HELLO HERE");
 
   function parseJwt(token) {
-    console.time("2 的 10 次方花費的時間");
+    // console.time("2 的 10 次方花費的時間");
     //decode JWT
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -34,7 +34,7 @@ if (token != "") {
         })
         .join("")
     );
-    console.timeEnd("2 的 10 次方花費的時間");
+    // // console.timeEnd("2 的 10 次方花費的時間");
     return JSON.parse(jsonPayload);
   }
 
@@ -42,7 +42,7 @@ if (token != "") {
 
   getData("/api/user/auth");
   function getData(url) {
-    console.time("2 的 10 次方花費的時間");
+    // console.time("2 的 10 次方花費的時間");
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onload = function () {
@@ -60,7 +60,7 @@ if (token != "") {
         }
       }
     };
-    console.timeEnd("2 的 10 次方花費的時間");
+    // // console.timeEnd("2 的 10 次方花費的時間");
     xhr.send(null);
   }
 } else {
@@ -80,7 +80,7 @@ function memberphoto(coverurl) {
 }
 
 function logout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let cookiedata = parseJwt(token);
 
   const data = {
@@ -109,11 +109,11 @@ function logout() {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getorigincategorybutton(thisuserid) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //清空資料
   let rest = document.querySelector(".categoryline");
   rest.innerHTML = "";
@@ -176,11 +176,11 @@ function getorigincategorybutton(thisuserid) {
       }
     });
   isLoading = false;
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategorybutton() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // console.log(isLoading);
@@ -202,51 +202,51 @@ function getcategorybutton() {
   //放到位置上
   _button_div.appendChild(_categorybutton_inform);
   newbutton[0].appendChild(_button_div);
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function addtopic() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   // console.log("hi");
   let _searchblock_div = document.querySelector(".searchblock");
   _searchblock_div.style.cssText = "display:block";
   let _blocker_div = document.querySelector(".blocker");
   _blocker_div.style.cssText = "display:block";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function hideview() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   const searchblock_view = document.querySelector(".searchblock");
   searchblock_view.style.display = "none";
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function categoryview() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   const thetext = document.querySelector(".inputtext");
   thetext.style.display = "none";
 
   const blocker = document.querySelector(".blocker");
   blocker.style.display = "flex";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getsearchdata() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   var newkeyword = document.getElementById("keyword").value;
   // console.log(newkeyword);
   keyword = newkeyword;
   postcategoryvideo(thisuserid, newkeyword);
   hideview();
   document.location.href = "/";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function postcategoryvideo(thisuserid, lasttopic) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //清空舊資料
   let rest = document.querySelector(".list-block");
   rest.innerHTML = "";
@@ -279,11 +279,11 @@ function postcategoryvideo(thisuserid, lasttopic) {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getcategoryvideo(keyword) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // console.log(isLoading);
@@ -373,7 +373,7 @@ function getcategoryvideo(keyword) {
   isLoading = false;
   let loadingblocker = document.querySelector(".loadding-blocker");
   loadingblocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function deletetopic(deletetopicid, deletetopicname) {
@@ -407,30 +407,30 @@ function deletetopic(deletetopicid, deletetopicname) {
 }
 
 function gohome() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function govideolist() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/videolist";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function gosubscriberlist() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/subscriberlist";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function gomember() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/member";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
-console.time("2 的 10 次方花費的時間");
+// console.time("2 的 10 次方花費的時間");
 var card = document.getElementsByClassName("card");
 window.addEventListener(
   "click",
@@ -479,4 +479,4 @@ window.addEventListener(
   },
   false
 );
-console.timeEnd("2 的 10 次方花費的時間");
+// // console.timeEnd("2 的 10 次方花費的時間");
