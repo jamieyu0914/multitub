@@ -1,4 +1,6 @@
-var isLoading = false;
+var isLoading = true;
+let loadingblocker = document.querySelector(".loadding-blocker");
+loadingblocker.style.display = "block";
 
 var nextPage;
 
@@ -160,6 +162,9 @@ const model = {
       // const result = await response.json();
       // view.toshow(result);
     })();
+    isLoading = false;
+    let loadingblocker = document.querySelector(".loadding-blocker");
+    loadingblocker.style.display = "none";
   },
 };
 
