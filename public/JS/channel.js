@@ -98,15 +98,15 @@ function memberphoto(coverurl) {
 }
 
 function loginandout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/login";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function gomember() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/member";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 // // Load the IFrame Player API code asynchronously
@@ -127,7 +127,7 @@ function gomember() {
 // }
 
 function getchannel(thisitemId) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // // console.log(isLoading);
@@ -304,11 +304,11 @@ function getchannel(thisitemId) {
   isLoading = false;
   let loadingblocker = document.querySelector(".loadding-blocker");
   loadingblocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function getoriginchannelvideo(channelTitle, thisitemId) {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   //讀取資料
   isLoading = true;
   // console.log(isLoading);
@@ -408,13 +408,13 @@ function getoriginchannelvideo(channelTitle, thisitemId) {
   isLoading = false;
   let loadingblocker = document.querySelector(".loadding-blocker");
   loadingblocker.style.display = "none";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 getchannel(thisitemId);
 
 function logout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let cookiedata = parseJwt(token);
 
   const data = {
@@ -443,7 +443,7 @@ function logout() {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 window.addEventListener(

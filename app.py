@@ -1168,6 +1168,8 @@ def api_category_get():
 
     sql = "SELECT * FROM video_list WHERE categoryid=%s" #SQL指令 檢查是否有重複的帳號 (email)
     val = (categoryidnumber, )
+
+   
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
@@ -1180,6 +1182,7 @@ def api_category_get():
             print(x)
             print("Hi Hello Hi 3")
             result = {
+                "videolistItemId" : x[0],
                 "videoId" : x[2],
                 "title" : x[3],
                 "coverurl" : x[4],
@@ -1196,6 +1199,44 @@ def api_category_get():
         return jsonify({
                 "data": results
                 }     ), 200                    
+
+@app.route("/api/categoryvideo", methods=["DELETE"])
+def deletecategoryvideo():
+
+    delete = request.get_json()
+    userid = delete["id"]
+    # userid = delete["userid"]
+    # useremail = delete["useremail"]
+    # topicid = delete["topicid"]
+    videolistItemId = delete["videolistItemId"]
+    videolistTitle = delete["videolistTitle"]
+    print(id,videolistItemId)
+
+
+    sql = "DELETE FROM video_list WHERE id=%s and title=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (videolistItemId, videolistTitle)
+    try:
+        # Get connection object from a pool
+        connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
+        cursor = connection_object.cursor()
+        print("MySQL connection is opened")
+        cursor.execute(sql, val)
+        connection_object.commit() 
+    except Error as e:
+            print("Error while connecting to MySQL using Connection pool ", e)
+            return (jsonify({
+                "error": True,
+                "message": "伺服器內部錯誤"
+                })),500
+    finally:
+        # closing database connection.    
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")        
+        print("播放清單影片："+videolistItemId+" 刪除")
+        response=make_response({"ok": True}, 200)
+        return response
+
 
 @app.route("/api/addvideo", methods=["POST"])
 def api_addvideo_post():
@@ -1293,8 +1334,8 @@ def api_addvideo_post():
 
  
 
-    sql = "INSERT INTO video_list (categoryid, videoid, title, coverurl, channeltitle) VALUES (%s, %s, %s, %s, %s)" #SQL指令 新增資料
-    val = (categorynumber, youtubevideoidkeyword, title, coverurl, channelTitle)
+    sql = "INSERT INTO video_list (categoryid, videoid, title, coverurl, channeltitle, userid) VALUES (%s, %s, %s, %s, %s, %s)" #SQL指令 新增資料
+    val = (categorynumber, youtubevideoidkeyword, title, coverurl, channelTitle, userid)
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
@@ -1364,7 +1405,11 @@ def api_subscriber_post():
         connection_object.close()
     print("MySQL connection is closed")
 
-    sql = "SELECT * FROM subscriber_list WHERE userid=%s and subscriber=%s" #SQL指令 檢查是否有重複的帳號 (email)
+    if keyword.startswith("@") == False:
+        sql = "SELECT * FROM subscriber_list WHERE userid=%s and channelid=%s"
+    else:
+        sql = "SELECT * FROM subscriber_list WHERE userid=%s and subscriber=%s"
+
     val = (useridnumber, keyword)
     try:
         # Get connection object from a pool
@@ -1390,43 +1435,53 @@ def api_subscriber_post():
                 })),200
     else:#資料驗證成功
 
-        keyword = keyword.split("@")[1]
-        print(keyword)
 
-        youtube_request = youtube.search().list(
-        part="snippet",
-        maxResults=1,
-        q=keyword,
-        type="channel"
-        )
+        if keyword.startswith("@") == True:
 
-        youtube_response = youtube_request.execute()
-        # print(response,"\n")
-        # nums = (len(youtube_response)-1) 
-        # print(nums)
-        results = []
-        # nextPageToken = youtube_response["nextPageToken"] #CDIQAA
-        # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
-        # print(youtube_response["items"])
-        # print(results['id'].get('videoId'))
-        # for i in range(0,1):
-            # print("------")
-        title=youtube_response["items"][0]["snippet"]["title"]
-        # customUrl=youtube_response["items"][0]["snippet"]["customUrl"]
-        channelId=youtube_response["items"][0]["id"]["channelId"]
+            customUrl = keyword
 
-         #search
-        youtube_request = youtube.channels().list(
+            keyword = keyword.split("@")[1]
+            print(keyword)
+
+            youtube_request = youtube.search().list(
             part="snippet",
-            id=channelId,
             maxResults=1,
+            q=keyword,
+            type="channel"
             )
 
-        print(channelId)
-        youtube_response = youtube_request.execute()
-        results = []
+            youtube_response = youtube_request.execute()
+            # print(response,"\n")
+            # nums = (len(youtube_response)-1) 
+            # print(nums)
+            results = []
+            # nextPageToken = youtube_response["nextPageToken"] #CDIQAA
+            # prevPageToken = youtube_response["prevPageToken"] #CDIQAQ
+            # print(youtube_response["items"])
+            # print(results['id'].get('videoId'))
+            # for i in range(0,1):
+                # print("------")
+            title=youtube_response["items"][0]["snippet"]["title"]
+            # customUrl=youtube_response["items"][0]["snippet"]["customUrl"]
+            channelId=youtube_response["items"][0]["id"]["channelId"]
 
-        customUrl = youtube_response["items"][0]["snippet"]["customUrl"]
+        else:
+            channelId = keyword
+
+            #search
+            youtube_request = youtube.channels().list(
+                part="snippet",
+                id=channelId,
+                maxResults=1,
+                )
+
+            print(channelId)
+            youtube_response = youtube_request.execute()
+            results = []
+
+            customUrl = youtube_response["items"][0]["snippet"]["customUrl"]
+            title=youtube_response["items"][0]["snippet"]["title"]
+
 
             
 

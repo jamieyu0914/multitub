@@ -331,6 +331,20 @@ html {
   position: relative;
   display: none;
 }
+.videobutton_close {
+  min-height: 20px;
+  background-image: url(/PNG/close.png);
+  background-size: contain;
+  border: 0px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 2px;
+  left: 250px;
+  position: relative;
+  width: 20px;
+  top: 5px;
+  display: none;
+}
 .searchblock {
   width: 520px;
   height: 165px;
@@ -1112,6 +1126,17 @@ html {
   height: 100%;
 }
 .photo {
+  width: 277.98px;
+  position: relative;
+  height: 156.36px;
+  background-size: contain;
+  border-radius: 5px;
+  border: 0px solid #e8e8e8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.newphoto {
   width: 277.98px;
   position: relative;
   height: 156.36px;

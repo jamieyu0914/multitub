@@ -91,13 +91,13 @@ function gohome() {
 }
 
 function gomember() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   document.location.href = "/member";
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 function logout() {
-  console.time("2 的 10 次方花費的時間");
+  // console.time("2 的 10 次方花費的時間");
   let cookiedata = parseJwt(token);
 
   const data = {
@@ -126,7 +126,7 @@ function logout() {
       }
     });
   });
-  console.timeEnd("2 的 10 次方花費的時間");
+  // // console.timeEnd("2 的 10 次方花費的時間");
 }
 
 const form = document.getElementById("form");
