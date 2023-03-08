@@ -30,7 +30,7 @@ import random
 
 load_dotenv()
 
-options = ["YOUTUBE_KEY_DEVELOPER_KEY", "YOUTUBE_KEY_DEVELOPER_KEY_I", "YOUTUBE_KEY_DEVELOPER_KEY_II", "YOUTUBE_KEY_DEVELOPER_KEY_III", "YOUTUBE_KEY_DEVELOPER_KEY_IIII", "YOUTUBE_KEY_DEVELOPER_KEY_IIIII"]
+options = ["YOUTUBE_KEY_DEVELOPER_KEY", "YOUTUBE_KEY_DEVELOPER_KEY_I", "YOUTUBE_KEY_DEVELOPER_KEY_II"]
 
 
 DATABASE_HOST = os.getenv("DATABASE_HOST")
@@ -1209,12 +1209,12 @@ def deletecategoryvideo():
     # useremail = delete["useremail"]
     # topicid = delete["topicid"]
     videolistItemId = delete["videolistItemId"]
-    videolistTitle = delete["videolistTitle"]
-    print(id,videolistItemId)
+    videolistchannelTitle = delete["videolistchannelTitle"]
+    print(userid,videolistItemId,videolistchannelTitle)
 
 
-    sql = "DELETE FROM video_list WHERE id=%s and title=%s;" #SQL指令 是否有對應的帳號、密碼
-    val = (videolistItemId, videolistTitle)
+    sql = "DELETE FROM video_list WHERE id=%s and channeltitle=%s;" #SQL指令 是否有對應的帳號、密碼
+    val = (videolistItemId, videolistchannelTitle)
     try:
         # Get connection object from a pool
         connection_object = connection_pool.get_connection() #連線物件 commit時 需要使用
