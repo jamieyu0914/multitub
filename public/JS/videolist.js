@@ -395,7 +395,7 @@ function getorigincategoryvideo(thisuserid, keyword) {
         let _categorybutton_close = document.createElement("div");
         _categorybutton_close.classList.add("videobutton_close");
         _categorybutton_close.id = "_video_close_" + videolistItemId;
-        _categorybutton_close.name = title;
+        _categorybutton_close.name = channelTitle;
         _categorybutton_close.onclick = function (e) {
           videodelete(e);
         };
@@ -613,14 +613,15 @@ function videodelete(e) {
   let buttonid = e.target.id.split("_video_close_")[1];
   console.log(buttonid);
 
-  let title = e.target.name;
+  let channelTitle = e.target.name;
+  console.log(channelTitle);
 
   const data = {
     id: cookiedata["id"],
     name: cookiedata["name"],
     email: cookiedata["email"],
     videolistItemId: buttonid,
-    videolistTitle: title,
+    videolistchannelTitle: channelTitle,
   };
   fetch(`/api/categoryvideo`, {
     method: "DELETE",
