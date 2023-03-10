@@ -5,14 +5,11 @@
 ![1678188126560](https://user-images.githubusercontent.com/43780809/224207515-5897326a-2e36-4d1a-8be2-02a4422bba67.jpg)
 
 - Framework: Python Flask
-- AWS RDS: Normalize MySQL database in 3NF, using index to improve query efficiency.
-- MySQL database: store users' basic info and history data of topics, video lists and subscribers.
-- AWS S3: storage of uploaded images from users.
-- AWS CloudFront: as CDN & S3 Cache.
-- RESTful API: Interface between Front End and Back-End.
-- Google Cloud (Google Develops): create a Google Cloud Console project, and a new set of API credentials to get an API key.
-- Youtube data API v3: access YouTube's video, playlist, and channel data and integrate YouTube into existing functions.
-- JWT: save users' status after login.
-- Nginx: establish as Reverse Proxy.
-- Docker-Compose: build image & deploy web server on EC2.
-- Swagger: create an API Doc.
+- Use boto3 to interact with AWS S3 for Python.
+- Setting the primary key with `userid` or `categoryid` columns to support fast website lookups through AWS RDS.
+- Add a project and set up API credentials to obtain an API key from Google Cloud in Google Developers.
+- Accessing videos, playlists, and channels data by Youtube data API v3.
+- Obtaining an SSL certificate with ZeroSSL.
+- Take GitHub Actions to implement CI/CD that creates the pull request after push changes to the repository.
+- Building and running applications within containers using Docker.
+- To implement the API documentation by Swagger.
