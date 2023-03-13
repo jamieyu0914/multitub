@@ -14,6 +14,6 @@ jobs:
         with:
           title: Pull Request Title
           body: Pull Request Description
-          head: develop
+          head: feature-branch
           base: main
           token: ${{ secrets.MY_GITHUB_TOKEN }}
