@@ -106,9 +106,9 @@ function signupblock() {
   const signupblock = document.querySelector(".signupblock");
   signupblock.style.display = "block";
 
-  const blocker = document.querySelector(".blocker");
-  blocker.style.cssText =
-    "background-color: #000000; display: flex; opacity: 0.25; z-index: 998;";
+  // const blocker = document.querySelector(".blocker");
+  // blocker.style.cssText =
+  //   "background-color: #000000; display: flex; opacity: 0.25; z-index: 998;";
 }
 
 function signupnametext() {

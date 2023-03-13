@@ -143,7 +143,7 @@ const model = {
         body: formdata,
       };
       try {
-        const response = await fetch("/upload", request);
+        const response = await fetch("/api/upload", request);
         const result = await response.json();
         if (result.ok === true) {
           view.toreload();
@@ -158,7 +158,7 @@ const model = {
     (async () => {
       const useremail = document.getElementById("useremail").innerText;
       console.log(useremail);
-      const response = await fetch(`/upload?useremail=${useremail}`);
+      const response = await fetch(`/api/upload?useremail=${useremail}`);
       // const result = await response.json();
       // view.toshow(result);
     })();

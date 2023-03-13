@@ -1,0 +1,1650 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MultiTube API",
+    "description": "MultiTube API to demonstrate Swagger",
+    "contact": {
+      "name": "MultiTube",
+      "url": "https://multitube.jamiexyu.com/",
+      "email": "jamieyu0914@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/user": {
+      "post": {
+        "tags": ["會員"],
+        "summary": "註冊一個新一個新的會員",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Signup_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新帳號註冊",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signup_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "註冊失敗，未輸入ID名稱、電子郵件與密碼或其他原因",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "相對應的錯誤訊息"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/auth": {
+      "get": {
+        "tags": ["會員"],
+        "summary": "取得會員資料",
+        "responses": {
+          "200": {
+            "description": "帳號登入",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signin_get_output"
+                },
+                "example": {
+                  "data": {
+                    "id": "29",
+                    "userid": "Amy",
+                    "useremail": "amy@abc.com",
+                    "photo": "1678515374.573346.png"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["會員"],
+        "summary": "登入會員",
+        "responses": {
+          "200": {
+            "description": "新帳號註冊",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signin_put_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "登入失敗，未輸入ID名稱、電子郵件與密碼或其他原因",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "相對應的錯誤訊息"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["會員"],
+        "summary": "登出會員",
+        "responses": {
+          "200": {
+            "description": "帳號登出",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signout_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "會員資料驗證失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "驗證錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search": {
+      "post": {
+        "tags": ["主題分類"],
+        "summary": "新增會員的主題分類關鍵字",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Search_post_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增主題分類關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Search_post_output"
+                },
+                "example": {
+                  "ok": true,
+                  "message": "資料驗證成功，但為已存在的主題關鍵字(選填)"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["主題分類"],
+        "summary": "搜尋會員的主題分類關鍵字資訊",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "主題關鍵字",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "搜尋主題分類關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Search_get_output"
+                },
+                "example": {
+                  "ok": true,
+                  "message": "資料驗證成功，但為已存在的主題關鍵字(選填)"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/topic": {
+      "get": {
+        "tags": ["主題分類"],
+        "summary": "取得會員的主題分類關鍵字",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "會員ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得主題分類關鍵字列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic_get_output"
+                },
+                "example": {
+                  "topic": ["蘋果發表會", "音樂"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["主題分類"],
+        "summary": "刪除會員的主題分類關鍵字",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Topic_delete_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "刪除主題分類關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic_delete_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/videolist": {
+      "get": {
+        "tags": ["影片清單列表"],
+        "summary": "取得會員的影片清單關鍵字列表",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "會員ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得影片清單類別關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Videolist_get_output"
+                },
+                "example": {
+                  "category": ["音樂", "美食"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["影片清單列表"],
+        "summary": "刪除會員的影片清單關鍵字標籤",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Videolist_delete_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "刪除影片清單類別關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Videolist_delete_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/subscriberlist": {
+      "get": {
+        "tags": ["訂閱者"],
+        "summary": "取得會員的訂閱者關鍵字列表",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "會員ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得訂閱者關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscriberlist_get_output"
+                },
+                "example": {
+                  "subscriber": "@Joeman",
+                  "subscribertitle": "Joeman"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["訂閱者"],
+        "summary": "刪除會員的訂閱者關鍵字標籤",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subscriberlist_delete_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "刪除訂閱者關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscriberlist_delete_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/channel": {
+      "get": {
+        "tags": ["搜尋頻道資訊"],
+        "summary": "搜尋頻道頁面所需的資訊",
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "query",
+            "description": "頻道ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "搜尋頻道頁面資訊",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel_get_output"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "channelTitle": "Joeman",
+                      "description": " 作洽詢請找我的經紀人Yuni:\nyuni.love0627@gmail.com",
+                      "thumbnailUrl": "https://yt3.ggpht.com/ytc/AL5GRJXiR0sl90Ml53-0B5cfsQdL3zBY1zlSOiI38ffRNw=s800-c-k-c0x00ffffff-no-rj",
+                      "customUrl": "@joeman",
+                      "publishedAt": "2010-10-11T10:02:53Z",
+                      "subscriberCount": "2490000",
+                      "viewCount": "924225628",
+                      "videoCount": "2581"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/channelvideo": {
+      "get": {
+        "tags": ["搜尋頻道資訊"],
+        "summary": "搜尋頻道影片所需的資訊",
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "query",
+            "description": "頻道ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "搜尋頻道頁面資訊",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channelvideo_get_output"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "thisId": "0",
+                      "title": "【Joeman】開箱20萬的頂級套裝電腦！MSI MEG Trident X2",
+                      "coverurl": "https://i.ytimg.com/vi/w5sOqUuyGLk/hqdefault.jpg",
+                      "channelTitle": "Joeman",
+                      "itemId": {
+                        "kind": "youtube#video",
+                        "videoId": "w5sOqUuyGLk"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/categoryvideo": {
+      "post": {
+        "tags": ["影片清單與影片"],
+        "summary": "新增影片清單中的類別",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categoryvideo_post_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增影片清單類別",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoryvideo_post_output"
+                },
+                "example": {
+                  "ok": true,
+                  "message": "資料驗證成功，但為已存在的主題關鍵字(選填)"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "未輸入關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "資料驗證失敗，請輸入新的影片清單類別關鍵字"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["影片清單與影片"],
+        "summary": "查詢影片清單中的類別與影片",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "會員ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "播放清單關鍵字",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查詢影片清單中的類別與影片",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoryvideo_get_output"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "videolistItemId": "47",
+                      "videoId": "iZ2Tah3IxQc",
+                      "title": "Add Swagger UI to Python Flask API",
+                      "coverurl": "https://i.ytimg.com/vi/iZ2Tah3IxQc/hqdefault.jpg",
+                      "channelTitle": "SBCODE"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["影片清單與影片"],
+        "summary": "刪除會員影片清單中的類別與影片資訊",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categoryvideo_delete_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "刪除影片清單中的類別與影片",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoryvideo_delete_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/addvideo": {
+      "post": {
+        "tags": ["影片清單與影片"],
+        "summary": "新增並搜尋影片資訊",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Addvideo_post_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增影片",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Addvideo_post_output"
+                },
+                "example": {
+                  "ok": true,
+                  "message": "資料驗證成功，但為已存在的主題關鍵字(選填)"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "error": true,
+                "message": "伺服器內部錯誤"
+              }
+            }
+          },
+          "400": {
+            "description": "影片資訊驗證失敗",
+            "content": {
+              "application/json": {
+                "error": true,
+                "message": "資料驗證失敗"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/subscribervideo": {
+      "post": {
+        "tags": ["訂閱者影片"],
+        "summary": "新增訂閱者列表中的影片",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subscribervideo_post_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新訂閱者關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscribervideo_post_output"
+                },
+                "example": {
+                  "ok": true,
+                  "message": "資料驗證成功，但為已存在的訂閱者關鍵字(選填)"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "未輸入關鍵字",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "資料驗證失敗，請輸入新的訂閱者關鍵字"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["訂閱者影片"],
+        "summary": "查詢訂閱者中的類別與影片",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "會員ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "訂閱者關鍵字",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查詢訂閱者中的類別與影片",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscribervideo_get_output"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "thisId": "0",
+                      "title": "阿淇博士 Dr. Achi",
+                      "coverurl": "https://yt3.ggpht.com/q5PBE9AMurB8Jd_NRLNFZQRSI5_KPd0hzbvGPqaS9QDzOLdzI_-juOgJbbJLfJvW9z0f1sNqTw=s800-c-k-c0xffffffff-no-rj-mo",
+                      "channelTitle": "阿淇博士 Dr. Achi",
+                      "itemId": "{'kind': 'youtube#channel', 'channelId': 'UCyYGbBvicdjDvNEehOMEy4A'}"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/upload": {
+      "post": {
+        "tags": ["上傳大頭照"],
+        "summary": "上傳大頭照檔案",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Upload_post_input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新大頭照檔案上傳",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Upload_post_output"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["上傳大頭照"],
+        "summary": "取得會員大頭照紀錄",
+        "parameters": [
+          {
+            "name": "useremail",
+            "in": "query",
+            "description": "會員Email",
+            "required": true,
+            "schema": {
+              "type": "useremail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得會員大頭照紀錄",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Upload_get_output"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "userid": "Amy",
+                      "photo": "1678634198.875479.png"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "資料庫連線失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": true,
+                  "message": "伺服器內部錯誤"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Signup_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        },
+        "required": ["name", "email", "password"]
+      },
+      "Signup_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Signin_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "userid": {
+                "type": "string"
+              },
+              "useremail": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Signin_put_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Signout_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Search_post_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "keyword": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "keyword"]
+      },
+      "Search_post_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Search_get_input": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          }
+        },
+        "required": ["keyword"]
+      },
+      "Search_get_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Topic_get_output": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string"
+          }
+        }
+      },
+      "Topic_delete_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "topicname": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "topicname"]
+      },
+      "Topic_delete_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Videolist_get_output": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          }
+        }
+      },
+      "Videolist_delete_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "categoryname": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "categoryname"]
+      },
+      "Videolist_delete_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Subscriberlist_get_output": {
+        "type": "object",
+        "properties": {
+          "subscriber": {
+            "type": "string"
+          },
+          "subscribertitle": {
+            "type": "string"
+          }
+        }
+      },
+      "Subscriberlist_delete_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "subscribername": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "subscribername"]
+      },
+      "Subscriberlist_delete_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Channel_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "channelTitle": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "thumbnailUrl": {
+                  "type": "string"
+                },
+                "customUrl": {
+                  "type": "string"
+                },
+                "publishedAt": {
+                  "type": "string"
+                },
+                "subscriberCount": {
+                  "type": "integer"
+                },
+                "viewCount": {
+                  "type": "integer"
+                },
+                "videoCount": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "channelTitle",
+                "description",
+                "thumbnailUrl",
+                "customUrl",
+                "publishedAt",
+                "subscriberCount",
+                "viewCount",
+                "videoCount"
+              ]
+            }
+          }
+        },
+        "required": ["data"]
+      },
+      "Channelvideo_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "thisId": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "coverurl": {
+                  "type": "string"
+                },
+                "itemId": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string"
+                    },
+                    "videoId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "thisId",
+                "title",
+                "coverurl",
+                "channelTitle",
+                "itemId"
+              ]
+            }
+          }
+        },
+        "required": ["data"]
+      },
+      "Categoryvideo_post_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "keyword": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "keyword"]
+      },
+      "Categoryvideo_post_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Categoryvideo_get_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "keyword": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "keyword"]
+      },
+      "Categoryvideo_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "videolistItemId": {
+                  "type": "string"
+                },
+                "videoId": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "coverurl": {
+                  "type": "string"
+                },
+                "channelTitle": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "videolistItemId",
+                "videoId",
+                "title",
+                "coverurl",
+                "channelTitle"
+              ]
+            }
+          }
+        },
+        "required": ["data"]
+      },
+      "Categoryvideo_delete_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer"
+          },
+          "videolistItemId": {
+            "type": "integer"
+          },
+          "videolistchannelTitle": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "videolistItemId", "videolistchannelTitle"]
+      },
+      "Categoryvideo_delete_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Addvideo_post_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "categorykeyword": {
+            "type": "string"
+          },
+          "youtubevideoidkeyword": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "categorykeyword", "youtubevideoidkeyword"]
+      },
+      "Addvideo_post_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Subscribervideo_post_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "keyword": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "keyword"]
+      },
+      "Subscribervideo_post_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Subscribervideo_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "thisId": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "coverurl": {
+                  "type": "string"
+                },
+                "channelTitle": {
+                  "type": "string"
+                },
+                "itemId": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string"
+                    },
+                    "videoId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "thisId",
+                "title",
+                "coverurl",
+                "channelTitle",
+                "itemId"
+              ]
+            }
+          }
+        },
+        "required": ["data"]
+      },
+      "Upload_post_input": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "userpassword": {
+            "type": "string"
+          },
+          "useremail": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        },
+        "required": ["userid", "userpassword", "useremail", "file"]
+      },
+      "Upload_post_output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Upload_get_input": {
+        "type": "object",
+        "properties": {
+          "useremail": {
+            "type": "string"
+          }
+        },
+        "required": ["useremail"]
+      },
+      "Upload_get_output": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userid": {
+                  "type": "string"
+                },
+                "photo": {
+                  "type": "string"
+                }
+              },
+              "required": ["userid", "photo"]
+            }
+          }
+        },
+        "required": ["data"]
+      }
+    }
+  }
+}

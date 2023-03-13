@@ -109,41 +109,6 @@ function gomember() {
 var tag = document.querySelector(".ytlistplayer");
 tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
 
-// function getplaylist(thisitemId) {
-//   // console.time("2 的 10 次方花費的時間");
-//   //讀取資料
-//   isLoading = true;
-//   // // console.log(isLoading);
-//   // let rest = document.querySelector(".list-block");
-//   // rest.innerHTML = "";
-//   // // console.log(keyword);
-//   // // const keyword = document.getElementById("keyword").value; //查詢關鍵字 的輸入值
-//   fetch(`/api/playlist?playlistId=${thisitemId}`)
-//     .then(function (response) {
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       console.log(data["data"]);
-//       console.log(data["data"]["videoId"]);
-//       let videoId = data["data"]["videoId"];
-//       getplaylistvideo(videoId);
-
-//       return videoId;
-//     });
-//   isLoading = false;
-//   // // console.timeEnd("2 的 10 次方花費的時間");
-// }
-
-// getplaylistvideo(thisitemId);
-
-// function getplaylistvideo(videoId) {
-//   var tag = document.querySelector(".ytlistplayer");
-//   tag.src = `https://www.youtube.com/embed/videoseries?list=${videoId}`;
-// }
-
-// var tag = document.querySelector(".ytlistplayer");
-// tag.src = `https://www.youtube.com/embed/videoseries?list=${thisitemId}`;
-
 function logout() {
   // console.time("2 的 10 次方花費的時間");
   let cookiedata = parseJwt(token);
