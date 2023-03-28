@@ -524,7 +524,7 @@ def api_search_get():
                 "channelTitle": channelTitle,
                 "itemId":thisitem
                     }
-        results.append(result)
+        results.append(result) #123
 
     # print(nextPageToken)
     # print(prevPageToken)
