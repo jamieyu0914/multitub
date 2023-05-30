@@ -1,5 +1,5 @@
 # MultiTube
-### YouTube topic categories as refernce. A multi-functional video streaming website.
+### YouTube topic categories as reference. A multi-functional video streaming website.
 
 ~~https://multitube.jamiexyu.com/~~
 
