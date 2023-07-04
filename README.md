@@ -1,7 +1,7 @@
 # MultiTube
 ### YouTube topic categories as reference. A multi-functional video streaming website.
 
-~~https://multitube.jamiexyu.com/~~
+
 
 ![image](https://user-images.githubusercontent.com/43780809/224301131-1ce77685-d96b-4218-a2b7-7de90d438f79.png)
 
