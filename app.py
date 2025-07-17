@@ -532,8 +532,8 @@ def api_search_get():
             "data": results
             }     ), 200  
 
-# @app.route("/api/playlist", methods=["GET"])
-# def api_playlist_get(): 
+@app.route("/api/playlist", methods=["GET"])
+def api_playlist_get(): 
 
     random_choice = random.choice(options)
     print(random_choice)
@@ -1740,4 +1740,4 @@ def get_upload():
 
 
 
-app.run(port=3080, debug=True)
+app.run(host='0.0.0.0', port=3030, debug=True)
